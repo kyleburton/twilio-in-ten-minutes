@@ -1,0 +1,33 @@
+Sign up for Heroku.
+
+Install the heroku gem
+
+Install bundler.
+
+run bundle install
+
+run heroku create
+
+Enter your credentials from the earlier step
+
+Note your application's url, this will be vital for when you sign up for
+Twilio.
+
+Heroku will automatically be added as a git remote.
+
+Push to heroku:
+
+  git push heroku master
+
+Sign up for the Twilio free trial.
+
+  As of Fri Feb 18 10:20:50 EST 2011 they grant you 3k mins free.
+
+
+h1. TWML
+
+This is my Ruby library and embedded DSL for Twilio's Markup Language.
+
+Links to Twilio Documentation.
+
+Description / diagram of the integration model.
