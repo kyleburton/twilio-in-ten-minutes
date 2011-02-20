@@ -100,6 +100,10 @@ Links to Twilio Documentation.
 
 Description / diagram of the integration model.
 
+h1. Viewing hte Heroku Logs
 
-h1. Scaling up
+<pre>
+heroku logs
+</pre>
+
 
