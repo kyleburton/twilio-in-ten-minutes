@@ -85,6 +85,7 @@ Heroku automatically added your application's git remote to your local git repos
 
 h3. Push the application code to heroku:
 
+!images/terminal-push-to-heroku.png!
 
 h3. Sign up for the Twilio free trial.
 

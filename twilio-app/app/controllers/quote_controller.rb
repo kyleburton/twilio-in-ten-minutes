@@ -17,14 +17,14 @@ class QuoteController < ApplicationController
     ]
   end
 
-  def start
+  def index
     session[:quote] ||= @quotes[rand @quotes.size]
-    c = self
+    app = self
     send_back do
       gather(:action => '/quote/answer', :digits => 1) do
         say "Welcome to the Quote Hotline."
         say "Your Quote is:"
-        say session[:quote]
+        say app.session[:quote]
         say "Press 1 to hear it again."
         say "Press 2 to disconnect."
       end
@@ -32,11 +32,11 @@ class QuoteController < ApplicationController
   end
 
   def answer
-    c = self
+    app = self
     if digits == "1"
       send_back do
         say "Your Quote is:"
-        say session[:quote]
+        say app.session[:quote]
         say "Press 1 to hear it again."
         say "Press 2 to disconnect."
       end
