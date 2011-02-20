@@ -3,8 +3,25 @@
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
-  protect_from_forgery # See ActionController::RequestForgeryProtection for details
+  # protect_from_forgery # See ActionController::RequestForgeryProtection for details
+  protect_from_forgery :only => [:create, :update, :destroy]
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
+
+  def digits
+    params['Digits'] || ''
+  end
+
+  def twaction m
+    m.to_s
+  end
+
+  def send_back &block
+    t = TWML.new do
+      instance_eval &block
+    end
+    render :text => t.twml
+  end
+
 end
