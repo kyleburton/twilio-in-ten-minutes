@@ -87,9 +87,28 @@ h3. Push the application code to heroku:
 
 !images/terminal-push-to-heroku.png!
 
+h3. Open the App in your Browser
+
+This is to ensure it's working.  You should see a random quote:
+
+!images/browse-the-heroku-app-to-test-it.png!
+
+
 h3. Sign up for the Twilio free trial.
 
-  As of Fri Feb 18 10:20:50 EST 2011 they grant you 3k mins free.
+!images/twilio-signup-1.png!
+
+!images/twilio-signup-2.png!
+
+
+h3. Configure Twilio's Voice URL
+
+!images/twilio-config-voice-url.png!
+
+
+h2. Quick!  Call Your Application!
+
+div(pre-requisite shadow). !(pre-req-img)images/goal.png!  Grab your phone and call your app.  Enter your PIN and you should hear your application speak to you.
 
 
 h1. TWML
