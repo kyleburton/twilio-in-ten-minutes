@@ -39,61 +39,51 @@ Outline
 
 h1. Deploing your First Application
 
-div(diagram shadow). !images/twilio-to-heroku.png!
-
 div(pre-requisite shadow). !(pre-req-img)images/goal.png!  Get Your App Deployed and Call it!
+
+We're going to make and deploy an application that you can call with your phone and it will greet you:
+
+div(diagram shadow). !images/twilio-to-heroku.png!
 
 h3. 1. Sign up for Heroku
 
-h3. Grab The Source Code
+!(shadow)images/heroku-1-signup.png!
+
+!(shadow)images/heroku-3-signup.png!
+
+You should then be shown your 'applications page'.
+
+!(shadow)images/heroku-4-myapps.png!
+
+h3. Grab The Source Code For This Guide
 
 div(pre-requisite shadow). !(pre-req-img)images/pre-req.png! You will need Git installed and have a connection to the Internet.
 
-clone this git repo:
+!images/git-clone-terminal.png!
 
-<pre>
-  user@host ~$ mkdir projects
-  user@host ~$ cd projects
-  user@host ~/projects$ git clone https://kyleburton@github.com/kyleburton/twilio-in-ten-minutes.git
-  user@host ~/projects$ cd twilio-in-ten-minutes
-  user@host twilio-in-ten-minutes$
-</pre>
+h3. Install the heroku gem
 
-Sign up for Heroku, go to: http://heroku.com/
+!images/terminal-install-heroku-gem.png!
 
-Install the heroku gem
+h3. Install the bundler gem
 
-<pre>
-  user@host twilio-in-ten-minutes$ gem install heroku
-</pre>
+!images/terminal-install-bundler-gem.png!
 
-Install bundler.
+h3. Run @bundle install@
 
-<pre>
-  user@host twilio-in-ten-minutes$ gem install bundler
-</pre>
+!images/terminal-run-bundle-install.png!
 
-run bundle install
+h3. Run @heroku create@
 
-<pre>
-  user@host twilio-in-ten-minutes$ bundle install
-</pre>
+When prompted, enter the credentials you creatd when you signed up in the earlier step:
 
-run heroku create
+!images/terminal-run-heroku-create.png!
 
-<pre>
-  user@host twilio-in-ten-minutes$ heroku create
-...show example output here...
-</pre>
+Note your application's url, this will be vital for when you sign up for Twilio.  For my example application, as seen in the screenshot above, it is @http://warm-wind-609.heroku.com/@
 
-Enter your credentials from when you signed up for heroku.
+Heroku automatically added your application's git remote to your local git repository.
 
-Note your application's url, this will be vital for when you sign up for
-Twilio.
-
-Heroku will automatically be added as a git remote.
-
-Push to heroku:
+Push the application code to heroku:
 
   git push heroku master
 
