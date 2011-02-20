@@ -79,15 +79,14 @@ When prompted, enter the credentials you creatd when you signed up in the earlie
 
 !images/terminal-run-heroku-create.png!
 
-Note your application's url, this will be vital for when you sign up for Twilio.  For my example application, as seen in the screenshot above, it is @http://warm-wind-609.heroku.com/@
+Note your application's url, this will be vital for when you sign up for Twilio.  For my example application, as seen in the screenshot above, it is @http://warm-wind-609.heroku.com/@.  Yours will be different.
 
 Heroku automatically added your application's git remote to your local git repository.
 
-Push the application code to heroku:
+h3. Push the application code to heroku:
 
-  git push heroku master
 
-Sign up for the Twilio free trial.
+h3. Sign up for the Twilio free trial.
 
   As of Fri Feb 18 10:20:50 EST 2011 they grant you 3k mins free.
 
