@@ -15,6 +15,13 @@ describe TWML do
     (twmlx { say "Hello" }/"say").inner_html.should == "Hello"
   end
 
+  it "Speaks text (constructor)" do
+    twml = TWML.new do 
+      say "Hello"
+    end
+    (xml(twml.body)/"say").inner_html.should == "Hello"
+  end
+
   it "Speaks text (woman, fr)" do
     res = twmlx {
       say "Bonjour", :voice => "woman", :language => "fr", :loop => "3"

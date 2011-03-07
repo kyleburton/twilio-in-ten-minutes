@@ -26,18 +26,6 @@ class TWML
     end
   end
 
-  def self.make_nested_tag_fn name, tag
-    define_method(name) do |*args,&block|
-      if ended?
-        raise "Error: conversation ended with preious tag, subsequent TWML is invalid"
-      end
-      opts = args[0] || {}
-      @body += "<#{tag} #{_attrs opts}>"
-      instance_eval &block if block_given?
-      @body += "</#{tag}>"
-    end
-  end
-
   def self.make_emtpy_tag_fn name, tag
     define_method(name) do  |*args|
       attrs = _attrs(args[0]||{})
@@ -62,9 +50,10 @@ class TWML
   def initialize &block
     @body = '';
     @ended = false
-    return @body if @body.nil? || @body.empty?
     instance_eval &block if block_given?
-    @twml = "<Response>\n"
+    return @body if @body.nil? || @body.empty?
+    @twml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    @twml += "<Response>\n"
     @twml += @body
     @twml += "</Response>\n"
   end 
