@@ -37,8 +37,10 @@ class QuoteController < ApplicationController
       send_back do
         say "Your Quote is:"
         say app.session[:quote]
-        say "Press 1 to hear it again."
-        say "Press 2 to disconnect."
+        gather(:action => '/quote/answer', :digits => 1) do
+          say "Press 1 to hear it again."
+          say "Press 2 to disconnect."
+        end
       end
     else
       send_back do
