@@ -9,7 +9,7 @@ class TWML
     twml.instance_eval &block
     res = twml.twml || twml.body
     raise "Error: no TWML generated!" if res.nil? || res.empty?
-    res
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Response>#{res}</Response>"
   end 
 
   def self.make_tag_fn name, tag

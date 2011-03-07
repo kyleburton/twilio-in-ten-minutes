@@ -19,7 +19,8 @@ describe TWML do
     twml = TWML.new do 
       say "Hello"
     end
-    (xml(twml.body)/"say").inner_html.should == "Hello"
+    twml.twml.start_with?("<?xml").should be_true
+    (xml(twml.twml)/"say").inner_html.should == "Hello"
   end
 
   it "Speaks text (woman, fr)" do
@@ -27,6 +28,8 @@ describe TWML do
       say "Bonjour", :voice => "woman", :language => "fr", :loop => "3"
     }
     
+    res.inner_html.start_with?("<?xml").should be_true
+    (res/"response").inner_html.should_not be_nil
     (res/"say").inner_html.should                   == "Bonjour"
     (res/"say").first.attributes['voice'].should    == "woman"
     (res/"say").first.attributes['language'].should == "fr"
@@ -40,6 +43,8 @@ describe TWML do
       end
     end
     
+    res.inner_html.start_with?("<?xml").should be_true
+    (res/"response").inner_html.should_not be_nil
     (res/"gather").first.attributes['action'].should == "/foo"
     (res/"say").inner_html.should == "Press 1 or 2"
   end
@@ -50,6 +55,8 @@ describe TWML do
       hangup
     end
     
+    res.inner_html.start_with?("<?xml").should be_true
+    (res/"response").inner_html.should_not be_nil
     (res/"hangup").first.should_not be_nil
     (res/"say").inner_html.should == "Goodbye"
   end
@@ -59,6 +66,8 @@ describe TWML do
       play "http://foo.com/cowbell.mp3", :loop => 3
     end
     
+    res.inner_html.start_with?("<?xml").should be_true
+    (res/"response").inner_html.should_not be_nil
     (res/"play").first.attributes['loop'].should == "3"
     (res/"play").inner_html.should == "http://foo.com/cowbell.mp3"
   end
@@ -68,6 +77,8 @@ describe TWML do
       sms "Message and Data Rates may apply."
     end
     
+    res.inner_html.start_with?("<?xml").should be_true
+    (res/"response").inner_html.should_not be_nil
     (res/"sms").inner_html.should == "Message and Data Rates may apply."
   end
 
@@ -94,6 +105,8 @@ describe TWML do
       dial "867-5309"
     end
     
+    res.inner_html.start_with?("<?xml").should be_true
+    (res/"response").inner_html.should_not be_nil
     (res/"dial").inner_html.should == "867-5309"
   end
 
@@ -106,6 +119,8 @@ describe TWML do
       end
     end
     
+    res.inner_html.start_with?("<?xml").should be_true
+    (res/"response").inner_html.should_not be_nil
     (res/"dial"/"number").size.should  == 3
     (res/"dial"/"number").first.inner_html.should == "867-5308"
     (res/"dial"/"number").last.inner_html.should  == "867-5310"
