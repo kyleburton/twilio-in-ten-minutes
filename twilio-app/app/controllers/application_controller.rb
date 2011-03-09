@@ -1,5 +1,6 @@
 # Filters added to this controller apply to all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
+require 'twml'
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
@@ -11,10 +12,6 @@ class ApplicationController < ActionController::Base
 
   def digits
     params['Digits'] || ''
-  end
-
-  def twaction m
-    m.to_s
   end
 
   def send_back &block
