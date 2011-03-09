@@ -1,0 +1,29 @@
+h1. TWML
+
+Internal DSL for "Twilio Markup Language":http://www.twilio.com/docs/api/twiml/.
+
+
+h1. Installation
+
+<pre>
+gem install twml
+</pre>
+
+h1. Generating TWML
+
+<pre>
+require 'rubygems'
+require 'twml'
+
+TWML.response do
+  gather(:action => '/controller', :digits => 1, :timeout => 10) do
+    say "Press 1 if you know your name."
+    say "Press 2 if you can hear me now."
+  end
+end
+</pre>
+
+
+h1. Authors
+
+Kyle Burton <kyle.burton@gmail.com>

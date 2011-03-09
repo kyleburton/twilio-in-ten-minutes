@@ -20,6 +20,7 @@ Twilio Markup Language DSL as a support module.
 EOS
   
   s.files = PKG_FILES.to_a
+  s.files << "README.textile"
  
   s.has_rdoc = false
   s.authors = ["Kyle Burton"]
