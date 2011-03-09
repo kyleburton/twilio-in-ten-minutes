@@ -1,6 +1,6 @@
 h1. TWML
 
-Internal DSL for "Twilio Markup Language":http://www.twilio.com/docs/api/twiml/.
+Internal DSL for "Twilio Markup Language":http://www.twilio.com/docs/api/twiml/.  For an example of using this library from Rails, please see the "Twilio in Ten Minutes":https://github.com/kyleburton/twilio-in-ten-minutes/ project on Github.
 
 
 h1. Installation
