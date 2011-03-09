@@ -19,17 +19,17 @@ class TWML
       end
       body = args[0] || ''
       opts = args[1] || {}
-      @body += "<#{tag} #{_attrs opts}>"
+      @body += "<#{tag}#{_attrs opts}>"
       @body += body
       instance_eval &block if block_given? || block
-      @body += "</#{tag}>"
+      @body += "</#{tag}>\n"
     end
   end
 
   def self.make_emtpy_tag_fn name, tag
     define_method(name) do  |*args|
       attrs = _attrs(args[0]||{})
-      @body += "<#{tag} #{attrs} />"
+      @body += "<#{tag}#{attrs} />"
     end
   end
 
@@ -78,22 +78,26 @@ class TWML
   end
 
   def _attrs opts={}
-    attrs = ''
+    attrs = []
     opts.each do |k,v|
-      attrs += "#{k}='#{v}'"
+      attrs << "#{k}='#{v}'"
     end
-    attrs
+    if attrs.empty?
+      ""
+    else
+      " " + attrs.join(" ")
+    end
   end
 
   def gather opts={}, &block
     opts = _gather_defaults opts
-    @body += "<Gather #{_attrs opts}>\n"
+    @body += "<Gather#{_attrs opts}>\n"
     instance_eval &block if block_given?
     @body += "</Gather>\n"
   end
 
   def play url, opts={}
-    @body += "<Play #{_attrs opts}>#{url}</Play>"
+    @body += "<Play#{_attrs opts}>#{url}</Play>"
   end
 
 end

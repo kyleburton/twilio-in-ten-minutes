@@ -15,14 +15,32 @@ h1. Generating TWML
 require 'rubygems'
 require 'twml'
 
-TWML.response do
+res = TWML.response do
   gather(:action => '/controller', :digits => 1, :timeout => 10) do
     say "Press 1 if you know your name."
     say "Press 2 if you can hear me now."
   end
 end
+
+puts res
 </pre>
 
+
+<pre>
+user@host ~$ ruby ex.rb
+<?xml version="1.0" encoding="UTF-8"?>
+<Response><Gather action='/controller' finishOnKey='#' digits='1' timeout='10'>
+<Say>Press 1 if you know your name.</Say>
+<Say>Press 2 if you can hear me now.</Say>
+</Gather>
+</Response>
+user@host ~$
+</pre>
+
+
+h1. Bugs
+
+The library is not currently using an xml builder - some special characters and forms may not render correctly.  Twilio doens't support many special characters, so there may not be a need for a full xml builder.
 
 h1. Authors
 
