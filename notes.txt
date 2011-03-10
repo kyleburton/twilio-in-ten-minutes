@@ -1,0 +1,9 @@
+What do I want from the IVR console?
+
+  - see a list of all active calls
+  - see a list of all previous calls
+  - view the current state of an active call
+    - a visualization
+    - the history of the call's interactions
+  - view the visualization ofthe 
+  - change the messaging in the flow
