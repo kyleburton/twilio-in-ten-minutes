@@ -1,0 +1,17 @@
+digraph {
+  "abuse_caller_and_hangup" [ shape = circle ]; 
+  "reask_for_card_number" [ shape = circle ]; 
+  "reask_for_card_number" -> "abuse_caller_and_hangup" [ label = "too_many_attempts?" ];
+  "reask_for_card_number" -> "reask_for_card_number" [ label = "not_card_number_valid?" ];
+  "reask_for_card_number" -> "ask_for_expensive_services" [ label = "card_number_valid?" ];
+  "weve_got_a_live_one" [ shape = circle ]; 
+  "weve_got_a_live_one" -> "weve_got_a_live_one" [ label = "pressed_1?" ];
+  "weve_got_a_live_one" -> "scare_user_and_hang_up" [ label = "not_pressed_1?" ];
+  "start" [ shape = doublecircle ]; 
+  "start" -> "reask_for_card_number" [ label = "not_card_number_valid?" ];
+  "start" -> "ask_for_expensive_services" [ label = "card_number_valid?" ];
+  "ask_for_expensive_services" [ shape = circle ]; 
+  "ask_for_expensive_services" -> "weve_got_a_live_one" [ label = "pressed_1?" ];
+  "ask_for_expensive_services" -> "scare_user_and_hang_up" [ label = "not_pressed_1?" ];
+  "scare_user_and_hang_up" [ shape = circle ]; 
+}
