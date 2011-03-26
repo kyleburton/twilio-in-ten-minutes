@@ -16,7 +16,7 @@ card number, we attempt to upsel them on
     end
 
     state :reask_for_card_number do
-      transitions_to :abuse_caller_and_hangup,    :if => :too_many_attempts?
+      transitions_to :abuse_caller_and_hangup,    :if => :reask_for_card_number_more_than_3_times?
       transitions_to :reask_for_card_number,      :if => :not_card_number_valid?
       transitions_to :ask_for_expensive_services, :if => :card_number_valid?
     end

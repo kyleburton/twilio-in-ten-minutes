@@ -1,0 +1,11 @@
+<% content_for :js do %>
+  <%= javascript_include_tag 'workflow' %>
+<% end %>
+
+<div>
+  Workflow: <%= @workflow.class %>
+</div>
+
+<div class="workflow-graph center">
+  <img id="workflow-graph" class="center" src="<%= @graph_png %>" />
+</div>

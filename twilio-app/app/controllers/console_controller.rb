@@ -10,6 +10,7 @@ class ConsoleController < ApplicationController
       { :id => 3, :name => 'active session3' },
       { :id => 4, :name => 'active session4' },
     ]
+    @registered_workflows = Ivrflow.registered_ivr_flows
     respond_to do |fmt|
       fmt.json { render :json => @active_sessions }
     end

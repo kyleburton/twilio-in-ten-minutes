@@ -3,10 +3,20 @@
 <% end %>
 
 <div class="line">
-  <div id="active-sessions" class="unit size1of3">
+  <div id="left-bar" class="unit size1of4">
+    <div id="active-sessions">
+    </div>
+    <div id="registered-workflows">
+      <p>Workflows</p>
+      <% Ivrflow.registered_ivr_flows.each do |name,cfg| %>
+        <div><%= link_to name, :controller => :workflow, :action => :show, :id => name %> </div>
+        <pre><%= name %>: <%= cfg.inspect %></pre>
+      <% end %>
+    </div>
   </div>
-  <div class="unit size2of3">
+  <div id="main-content" class="unit size3of4 lastUnit">
     details of selected session goes here,
     after you click the session
+  </div>
   </div>
 </div>

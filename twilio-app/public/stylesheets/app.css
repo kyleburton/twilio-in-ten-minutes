@@ -1,9 +1,42 @@
+body {
+  background-image:      url(/images/awesome-ivr-official-seal-a6.7.png);
+  background-repeat:     no-repeat;
+  background-attachment: fixed;
+  background-position:   center; 
+  opacity: 25%;
+}
+
+#header {
+  height: 1em;
+  padding: 0.25em;
+  margin: 0.25em;
+}
+
 #left-bar {
   border: 1px solid #CCC;
   padding: 3px;
+  margin: 0.25em;
 }
 
 #main-content {
   border: 1px solid #CCC;
   padding: 3px;
+  margin: 0.25em;
+}
+
+#error-flash {
+  color: red;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+.workflow-graph {
+  border: 1px solid #CCC;
+}
+
+.workflow-graph img {
+  width: 300px;
+  display: block;
 }

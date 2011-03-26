@@ -6,5 +6,9 @@ require(File.join(File.dirname(__FILE__), 'config', 'boot'))
 require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
-
 require 'tasks/rails'
+
+Dir.glob("lib/tasks/*.rb").each do |f|
+  require f
+end
+
