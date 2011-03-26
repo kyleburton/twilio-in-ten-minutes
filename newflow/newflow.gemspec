@@ -1,4 +1,4 @@
-PKG_VERSION = '1.0.1'
+PKG_VERSION = '1.0.2'
 PKG_FILES   = Dir['lib/**/*.rb',
                   'spec/**/*.rb']
 

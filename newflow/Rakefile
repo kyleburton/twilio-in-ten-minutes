@@ -24,3 +24,10 @@ Rake::GemPackageTask.new($spec) do |t|
   t.need_tar = true
 end
 
+namespace :newflow do
+  desc "build"
+  task :build do
+    system "gem", "build", "newflow.gemspec"
+    system "gem", "install", "newflow-*.gem"
+  end
+end

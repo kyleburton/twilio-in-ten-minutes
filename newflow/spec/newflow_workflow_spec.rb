@@ -34,10 +34,10 @@ describe "A workflow" do
     before do
       @definition = lambda {
         state :start, :start => true do
-          transitions_to :finish, :if => :go_to_finish?
+        transitions_to :finish, :if => :go_to_finish?
         end
 
-        state :finish, :on_entry => :make_pizza, :stop => true
+      state :finish, :on_entry => :make_pizza, :stop => true
       }
 
       @klass.send(:define_method, :go_to_finish?) do
@@ -76,10 +76,10 @@ describe "A workflow" do
     before do
       @definition = lambda {
         state :start, :start => true do
-          transitions_to :finish, :if => :go_to_finish?
+        transitions_to :finish, :if => :go_to_finish?
         end
 
-        state :finish, :stop => true
+      state :finish, :stop => true
       }
 
       @klass.send(:define_method, :go_to_finish?) do
@@ -90,6 +90,29 @@ describe "A workflow" do
 
     it "should raise an error on instantiation" do
       lambda { Newflow::Workflow.new(@obj, @definition) }.should raise_error(Newflow::InvalidWorkflowStateError)
+    end
+  end
+
+  describe "A workflow with a self-transition" do
+    before do
+      @definition = lambda {
+        state :start, :start => true do
+          transitions_to :finish, :if => :go_to_finish?
+          transitions_to :start,  :if => :stay_at_start?
+        end
+
+        state :finish, :stop => true
+      }
+
+      @klass.send(:define_method, :stay_at_start?) do
+        true
+      end
+
+      @klass.send(:define_method, :go_to_finish?) do
+        false
+      end
+
+      @obj.workflow_state = "start"
     end
   end
 end
