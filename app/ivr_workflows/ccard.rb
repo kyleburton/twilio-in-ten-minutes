@@ -47,7 +47,7 @@ card number, we attempt to upsel them on
 
   def start_message
     twml do
-      gather(:digits => 16, :timeout => 20) do
+      gather(:numDigits => 16, :timeout => 20) do
         say "Welcome to the La Cosa Nostra credit card activation system."
         say "Please enter your 16 digit card number."
       end
@@ -61,7 +61,7 @@ card number, we attempt to upsel them on
   def reask_for_card_number_message
     retries = 3 - @asked_for_card_times
     twml do
-      gather(:digits => 16, :timeout => 20) do
+      gather(:numDigits => 16, :timeout => 20) do
         say "Oh, you're a real smart guy aren't you?"
         say "You have #{retries+1} chances left."
         say "Enter your 16 digit card number for real this time!"
@@ -71,7 +71,7 @@ card number, we attempt to upsel them on
 
   def ask_for_expensive_services_message
     twml do
-      gather(:digits => 1, :timeout => 20) do
+      gather(:numDigits => 1, :timeout => 20) do
         say "Hey, well done there."
         say "Listen, somebody could steal your identity and make charges on your card."
         say "You want we should break their legs?"
@@ -88,7 +88,7 @@ card number, we attempt to upsel them on
 
   def weve_got_a_live_one_message
     twml do
-      gather(:digits => 1, :timeout => 20) do
+      gather(:numDigits => 1, :timeout => 20) do
         say "It is a reasonable person indeed who values protection."
         say "If you'd like us to take care of these scumbags before they cause you any trouble, press 1."
         say "Otherwise press 2."

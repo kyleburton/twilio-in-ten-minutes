@@ -71,7 +71,7 @@ class TWML
   end
 
   def _gather_defaults opts
-    { :digits      => '1',
+    { :numDigits   => '1',
       :timeout     => 5,
       :finishOnKey => '#',
     }.merge opts
