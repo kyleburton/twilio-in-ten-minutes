@@ -9,8 +9,8 @@ namespace :twilio_in_ten_minutes do
   end
 end
 
-namespace :db do
-  task :migrate do
-    system ("cd twilio-app; rake db:migrate");
-  end
-end
+#namespace :db do
+#  task :migrate do
+#    system ("cd twilio-app; rake db:migrate");
+#  end
+#end
