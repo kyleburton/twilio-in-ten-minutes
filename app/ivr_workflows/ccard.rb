@@ -98,7 +98,7 @@ card number, we attempt to upsel them on
 
   def thank_user_and_hang_up_message
     twml do
-      say "We value your friendship and one day will ask you for a favor."
+      say "Consider it done.  We value your friendship and one day will ask you for a favor."
       say "Until that time, know that we are watching.  Goodbye."
       hangup
     end
