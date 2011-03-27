@@ -15,7 +15,7 @@ card number, we attempt to upsel them on
       transitions_to :ask_for_expensive_services, :if => :card_number_valid?
     end
 
-    state :reask_for_card_number do
+    state :reask_for_card_number, :on_entry => :reasked_for_card_number do
       transitions_to :abuse_caller_and_hangup,    :if => :reask_for_card_number_more_than_3_times?
       transitions_to :reask_for_card_number,      :if => :not_card_number_valid?
       transitions_to :ask_for_expensive_services, :if => :card_number_valid?
@@ -46,7 +46,6 @@ card number, we attempt to upsel them on
   end
 
   def start_message
-    self.asked_for_card_times += 1
     twml do
       gather(:digits => 16, :timeout => 20) do
         say "Welcome to the La Cosa Nostra credit card activation system."
@@ -55,11 +54,16 @@ card number, we attempt to upsel them on
     end
   end
 
+  def reasked_for_card_number
+    @asked_for_card_times += 1
+  end
+
   def reask_for_card_number_message
-    self.asked_for_card_times += 1
+    retries = 3 - @asked_for_card_times
     twml do
       gather(:digits => 16, :timeout => 20) do
         say "Oh, you're a real smart guy aren't you?"
+        say "You have #{retries+1} chances left."
         say "Enter your 16 digit card number for real this time!"
       end
     end
@@ -79,7 +83,7 @@ card number, we attempt to upsel them on
   end
 
   def reask_for_card_number_more_than_3_times?
-    @asked_for_card_times > 3
+    @asked_for_card_times >= 3
   end
 
   def weve_got_a_live_one_message
@@ -109,7 +113,7 @@ card number, we attempt to upsel them on
 
   def abuse_caller_and_hangup_message
     twml do
-      say "What?  Can't you read?  Forget about it."
+      say "Whats amatter you?  Forget about it."
       hangup
     end
   end

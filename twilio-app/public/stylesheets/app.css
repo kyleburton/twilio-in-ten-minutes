@@ -40,6 +40,8 @@ body {
 }
 
 .workflow-graph {
+  padding: 1em;
+  display: block;
 }
 
 #logo {

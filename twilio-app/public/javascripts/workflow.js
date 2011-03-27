@@ -14,7 +14,7 @@ var Workflow = function () {
   self.callSid = function () {
     console.log('self.sid=%s',self.sid);
     if ( self.sid !== null && self.sid !== "" && self.sid !== undefined ) {
-      return sid;
+      return self.sid;
     }
 
     var sid = $.query.get('CallSid');
@@ -36,6 +36,7 @@ var Workflow = function () {
     $('#workflow-form').submit(Workflow.formSubmit);
     $('#input-digits').focus();
     $('#press-digits').click(self.pressDigitsButtonClicked);
+    $('#view-session-link').click(self.clickedViewSessionLink);
     $('#caller').val('(610) 555-1212');
     $('#call-sid').val(self.callSid());
     $('#reset').click(self.resetConversation);
@@ -166,6 +167,7 @@ var Workflow = function () {
     $('#input-digits').val('');
     $('#conversation').html('');
     $('#input-digits').focus();
+    console.log('deleting callsid:%s',self.callSid());
     $.ajax({
       url:     '/call_session/delete/' + self.callSid(),
       error:   Workflow.ajaxError,
@@ -173,6 +175,13 @@ var Workflow = function () {
       type:    'DELETE'
     });
     self.interactionCounter = 0;
+    return false;
+  };
+
+  self.clickedViewSessionLink = function () {
+    var url = '/call_session/by_sid/' + self.callSid();
+    console.log('set the brower.location=%s',url);
+    window.location = url;
     return false;
   };
 

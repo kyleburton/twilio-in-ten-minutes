@@ -19,4 +19,14 @@ class CallSessionController < ApplicationController
       fmt.html
     end
   end
+
+  def by_sid
+    @call_session = CallSession.find_by_session_id(params[:id])
+    params[:CallSid] = @call_session.session_id
+    find_or_create_session @call_session.workflow_name
+    respond_to do |fmt|
+      fmt.json { render :json => { :call_session => @call_session, :workflow_history => @workflow.history  } }
+      fmt.html { render :template => 'call_session/show' }
+    end
+  end
 end

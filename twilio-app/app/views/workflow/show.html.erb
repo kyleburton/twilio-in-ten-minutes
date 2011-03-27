@@ -5,9 +5,6 @@
 <div class="line">
   <div class="unit size1of5">
     <p> Workflow: <span id="workflow-name"><%= @workflow.class %></span> </p>
-    <div class="workflow-graph center">
-      <img id="workflow-graph" src="<%= @graph_png %>" />
-    </div>
   </div>
   <div class="unit size3of5">
     <div>
@@ -28,7 +25,7 @@
             <tr>
               <td><label for="caller">Call Session ID:</label></td>
               <td><input type="text" id="call-sid" name="digits" size="35" /></td>
-              <td><%= link_to "View Session", :controller => :call_session, :action => :show, :id => @call_session.id -%></td>
+              <td><a id="view-session-link" href="#">View Session</a></td>
             </tr>
           </table>
         </fieldset>
@@ -39,6 +36,11 @@
         <legend>Conversation</legend>
       <div id="conversation"></div>
     </fieldset>
+
+    <div class="workflow-graph center">
+      <img id="workflow-graph" class="center" src="<%= @graph_png %>" />
+    </div>
+
     </div>
     <div class="unit size1of5 lastUnit">
     </div>
