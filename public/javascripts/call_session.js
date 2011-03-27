@@ -24,10 +24,13 @@ var CallSession = function() {
         content += '<div class="workflow-message">' + hist.message + '</div>';
         $('#session-history').append(content);
     });
+
+    setTimeout( self.getSessionInfo, 1000 );
   };
 
   self.serverError = function (xhr,errStatus,err) {
-    alert("Error retreiving session info from server: " + errStatus);
+    // alert("Error retreiving session info from server: " + errStatus);
+    setTimeout( self.getSessionInfo, 1000 );
   };
 
   return self;
