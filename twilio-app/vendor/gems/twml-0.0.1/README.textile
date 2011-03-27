@@ -1,0 +1,47 @@
+h1. TWML
+
+Internal DSL for "Twilio Markup Language":http://www.twilio.com/docs/api/twiml/.  For an example of using this library from Rails, please see the "Twilio in Ten Minutes":https://github.com/kyleburton/twilio-in-ten-minutes/ project on Github.
+
+
+h1. Installation
+
+<pre>
+gem install twml
+</pre>
+
+h1. Generating TWML
+
+<pre>
+require 'rubygems'
+require 'twml'
+
+res = TWML.response do
+  gather(:action => '/controller', :digits => 1, :timeout => 10) do
+    say "Press 1 if you know your name."
+    say "Press 2 if you can hear me now."
+  end
+end
+
+puts res
+</pre>
+
+
+<pre>
+user@host ~$ ruby ex.rb
+<?xml version="1.0" encoding="UTF-8"?>
+<Response><Gather action='/controller' finishOnKey='#' digits='1' timeout='10'>
+<Say>Press 1 if you know your name.</Say>
+<Say>Press 2 if you can hear me now.</Say>
+</Gather>
+</Response>
+user@host ~$
+</pre>
+
+
+h1. Bugs
+
+The library is not currently using an xml builder - some special characters and forms may not render correctly.  Twilio doens't support many special characters, so there may not be a need for a full xml builder.
+
+h1. Authors
+
+Kyle Burton <kyle.burton@gmail.com>

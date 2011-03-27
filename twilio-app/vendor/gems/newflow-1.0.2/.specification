@@ -1,0 +1,82 @@
+--- !ruby/object:Gem::Specification 
+name: newflow
+version: !ruby/object:Gem::Version 
+  hash: 19
+  prerelease: 
+  segments: 
+  - 1
+  - 0
+  - 2
+  version: 1.0.2
+platform: ruby
+authors: 
+- Trotter Cashion
+- Kyle Burton
+- Aaron Feng
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2011-03-27 00:00:00 -04:00
+default_executable: 
+dependencies: []
+
+description: |
+  Newflow provides a way to add workflows to existing objects. It uses
+  a simple dsl to add guards and triggers to states and their transitions.
+
+email: cashion@gmail.com
+executables: []
+
+extensions: []
+
+extra_rdoc_files: []
+
+files: 
+- lib/newflow/state.rb
+- lib/newflow/transition.rb
+- lib/newflow/trigger.rb
+- lib/newflow/workflow.rb
+- lib/newflow.rb
+- spec/newflow_spec.rb
+- spec/newflow_state_spec.rb
+- spec/newflow_transition_spec.rb
+- spec/newflow_trigger_spec.rb
+- spec/newflow_workflow_spec.rb
+- spec/spec_helper.rb
+has_rdoc: true
+homepage: http://trottercashion.com
+licenses: []
+
+post_install_message: 
+rdoc_options: []
+
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  none: false
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      hash: 3
+      segments: 
+      - 0
+      version: "0"
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  none: false
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      hash: 3
+      segments: 
+      - 0
+      version: "0"
+requirements: []
+
+rubyforge_project: 
+rubygems_version: 1.5.0
+signing_key: 
+specification_version: 3
+summary: Add workflows (state transitions) to objects.
+test_files: []
+
