@@ -23,7 +23,7 @@ var Workflow = function () {
     $('#press-digits').click(self.pressDigitsButtonClicked);
     $('#caller').val('(610) 555-1212');
     $('#call-sid').val(self.callSid);
-    $('#reset').click(self.resetButtonClicked);
+    $('#reset').click(self.resetConversation);
     self.requestCurrentMessage();
   };
 
@@ -62,7 +62,6 @@ var Workflow = function () {
 
   self.addUserInput = function(input) {
     var content = "<div>"
-      + (++self.interactionCounter) + ":"
       + "<div class=\"timestamp\">"
       + "[" + (new Date()).toString() + "]"
       + "</div>"
@@ -105,6 +104,7 @@ var Workflow = function () {
   self.serverResponse = function (data) {
     self.lastResponse = data;
     var content = '';
+    content += "Step: " + (++self.interactionCounter) + "<br/>";
     if (data.error) {
       content
         += "<div class=\"workflow-error-message\">"
@@ -114,7 +114,7 @@ var Workflow = function () {
     }
     content 
       += "<div class=\"server-response\">" 
-      +  "<span>"
+      +  "<span class=\"workflow-state\">"
       +  "[" + (new Date()).toString() + "]"
       +  data.workflow_name + "/" + data.workflow_state
       +  "</span>"

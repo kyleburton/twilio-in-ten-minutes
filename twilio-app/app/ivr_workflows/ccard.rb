@@ -66,9 +66,9 @@ card number, we attempt to upsel them on
     twml do
       gather(:digits => 1, :timeout => 20) do
         say "Hey, well done there."
-        say "Listen, somebody could totally steal your identity and make charges on your card."
-        say "You want we should break their legs if that happens?"
-        say "It'll only cost you $99 a month for this protection."
+        say "Listen, somebody could steal your identity and make charges on your card."
+        say "You want we should break their legs?"
+        say "This protection is only $99 a month."
         say "To accept this contract press 1, otherwise press 2."
         say "Don't say we didn't warn you."
       end
@@ -83,7 +83,7 @@ card number, we attempt to upsel them on
     twml do
       gather(:digits => 1, :timeout => 20) do
         say "It is a reasonable person indeed who values protection."
-        say "If you'd like us to find these scumbags and take care of them now, press 1."
+        say "If you'd like us to take care of these scumbags before they cause you any trouble, press 1."
         say "Otherwise press 2."
       end
     end

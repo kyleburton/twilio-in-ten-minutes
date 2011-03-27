@@ -82,7 +82,20 @@ body {
   font-style: bold;
 }
 
+.timestamp {
+  color: #BBB;
+}
+
+.workflow-state {
+  color: #BBB;
+}
+
+.twml {
+  color: #BBB;
+}
+
 .twml-say {
-  font-size: 2em;
+  color: #000;
+  font-size: 1.25em;
   font-style: bold;
 }
