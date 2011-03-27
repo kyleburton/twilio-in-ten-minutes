@@ -25,6 +25,11 @@ var Console = function () {
 
   self.receiveActiveSessions = function (data) {
     console.log('active sessions[len=%s]=%s', data.length, data);
+    if (data.length == 0) {
+      $('#active-sessions').text("No sessions are active.");
+      return true;
+    }
+
     $.each(data, function(idx,sessionInfo) {
         console.log('data[%s] entry=%s', idx, sessionInfo);
         console.dir(sessionInfo);

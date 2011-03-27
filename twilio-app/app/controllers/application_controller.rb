@@ -14,6 +14,10 @@ class ApplicationController < ActionController::Base
     params['Digits'] || ''
   end
 
+  def caller
+    params['Caller'] || ''
+  end
+
   def send_back &block
     t = TWML.new do
       instance_eval &block

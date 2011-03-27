@@ -14,11 +14,20 @@
         <% if flash[:error] -%>
           <div id="error-flash">Error: <%= flash[:error] %></div>
         <% end -%>
+        <a href="/"><img id="logo" class="center" src="/images/awesome-ivr.gif" /></a>
+        <%= link_to "Console", :controller => :console, :action => :index -%>
       </div>
       <div id="body">
         <%= yield %>
       </div>
-      <div id="footer">&nbsp;</div>
+
+      <br />
+
+      <div id="footer" class="center">
+        <a href="/">Home</a>
+        | <a href="http://heroku.com/">Heroku</a> [<a href="http://devcenter.heroku.com/">Dev Center</a>]
+        | <a href="http://www.twilio.com/">Twilio</a> [<a href="http://www.twilio.com/docs/index">Documentation</a>]
+      </div>
     </div>
   </body>
   <%= yield :js %>

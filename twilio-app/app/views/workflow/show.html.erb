@@ -2,10 +2,45 @@
   <%= javascript_include_tag 'workflow' %>
 <% end %>
 
-<div>
-  Workflow: <%= @workflow.class %>
+<div class="line">
+  <div class="unit size1of5">
+    <p> Workflow: <span id="workflow-name"><%= @workflow.class %></span> </p>
+    <div class="workflow-graph center">
+      <img id="workflow-graph" src="<%= @graph_png %>" />
+    </div>
+  </div>
+  <div class="unit size3of5">
+    <div>
+      <form id="workflow-form">
+        <fieldset>
+          <legend>IVR Interaction</legend>
+          <table>
+            <tr>
+              <td><label for="input-digits">Digits:</label></td>
+              <td><input type="text" id="input-digits" name="digits" size="35" /></td>
+              <td><input type="submit" id="press-digits" name="press-digits" value="Enter Digits" /> </td>
+            </tr>
+            <tr>
+              <td><label for="caller">Calling From:</label></td>
+              <td><input type="text" id="caller" name="digits" size="35" /></td>
+              <td><input type="submit" id="reset" name="reset" value="Reset Workflow" /></td>
+            </tr>
+            <tr>
+              <td><label for="caller">Call Session ID:</label></td>
+              <td><input type="text" id="call-sid" name="digits" size="35" /></td>
+            </tr>
+          </table>
+        </fieldset>
+      </form>
+    </div>
+    <div class="conversation-container">
+      <fieldset>
+        <legend>Conversation</legend>
+      <div id="conversation"></div>
+    </fieldset>
+    </div>
+    <div class="unit size1of5 lastUnit">
+    </div>
+  </div>
 </div>
 
-<div class="workflow-graph center">
-  <img id="workflow-graph" class="center" src="<%= @graph_png %>" />
-</div>

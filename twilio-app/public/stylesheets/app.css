@@ -4,16 +4,21 @@ body {
   background-attachment: fixed;
   background-position:   center; 
   opacity: 25%;
+  background-color: #DFD;
 }
 
 #header {
-  height: 1em;
+  height: 100px;
   padding: 0.25em;
   margin: 0.25em;
 }
 
+#footer {
+  display: block;
+  text-align: center;
+}
+
 #left-bar {
-  border: 1px solid #CCC;
   padding: 3px;
   margin: 0.25em;
 }
@@ -32,11 +37,42 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
+
 .workflow-graph {
-  border: 1px solid #CCC;
+}
+
+#logo {
+  width: 640px;
+  display: block;
 }
 
 .workflow-graph img {
-  width: 300px;
+  width: 100px;
+  border: 2px solid #777;
+  padding: 0.25em;
   display: block;
+}
+
+#active-sessions {
+  border: 1px solid #CCC;
+  padding: 0.67em;
+}
+
+#registered-workflows {
+  border: 1px solid #CCC;
+  padding: 0.67em;
+}
+
+.conversation-container {
+  margin-top: 2em;
+}
+
+#conversation {
+  padding: 1em;
+}
+
+.empty-conversation {
+  font-size: 1.5em;
+  color: #777;
+  text-align: center;
 }

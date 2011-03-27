@@ -4,19 +4,28 @@
 
 <div class="line">
   <div id="left-bar" class="unit size1of4">
-    <div id="active-sessions">
-    </div>
     <div id="registered-workflows">
       <p>Workflows</p>
       <% Ivrflow.registered_ivr_flows.each do |name,cfg| %>
         <div><%= link_to name, :controller => :workflow, :action => :show, :id => name %> </div>
-        <pre><%= name %>: <%= cfg.inspect %></pre>
       <% end %>
     </div>
+    <div id="active-sessions"> </div>
   </div>
   <div id="main-content" class="unit size3of4 lastUnit">
-    details of selected session goes here,
-    after you click the session
+    <p>
+      Welcome to your <u>Awesome</u> IVR!
+    </p>
+    <p>
+      You can interact with one of the IVR flows by
+      clicking on it's name over there on the left.
+    </p>
+    <p>
+      You can spy on active sessions by clicking on 
+      one of the phone numbers (on the left beneath the 
+      workflows).  There may not be any if no one is
+      using the system.
+    </p>
   </div>
   </div>
 </div>

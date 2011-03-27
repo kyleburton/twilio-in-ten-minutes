@@ -5,10 +5,6 @@ class ConsoleController < ApplicationController
 
   def active_sessions
     @active_sessions = [
-      { :id => 1, :name => 'active session1' },
-      { :id => 2, :name => 'active session2' },
-      { :id => 3, :name => 'active session3' },
-      { :id => 4, :name => 'active session4' },
     ]
     @registered_workflows = Ivrflow.registered_ivr_flows
     respond_to do |fmt|
