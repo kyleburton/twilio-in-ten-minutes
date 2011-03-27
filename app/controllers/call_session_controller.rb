@@ -11,7 +11,7 @@ class CallSessionController < ApplicationController
   end
 
   def show
-    @call_session = CallSession.find(params[:id])
+    @call_session = CallSession.find(params[:id], :order => 'updated_at DESC')
     params[:CallSid] = @call_session.session_id
     find_or_create_session @call_session.workflow_name
     respond_to do |fmt|
