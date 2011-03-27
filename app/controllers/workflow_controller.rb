@@ -21,6 +21,7 @@ class WorkflowController < ApplicationController
 <!-- Workflow State: #{@workflow.current_state} -->
     END
     respond_to do |fmt|
+      fmt.xml { render :content_type => 'text/xml', :text => twml }
       fmt.json { 
         render :json => {
           :workflow_name  => @call_session.workflow_name,
@@ -30,7 +31,6 @@ class WorkflowController < ApplicationController
           :twml           => twml
         }
       }
-      fmt.xml { render :content_type => 'text/xml', :text => twml }
     end
   end
 
