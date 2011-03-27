@@ -38,9 +38,8 @@ class WorkflowController < ApplicationController
       @workflow.digits = digits
       res = @workflow.transition_once!
       @workflow.set_response
-      puts "After transition: res=#{res} #{before_state} => #{@workflow.current_state}"
-      puts "After transition: new message is: #{@workflow.message}"
       @call_session.state = @workflow.current_state.to_s
+      @call_session.workflow_internal_state = @workflow.serialize_workflow
       @call_session.save!
       res
     end
@@ -63,6 +62,7 @@ class WorkflowController < ApplicationController
           :workflow_name  => @call_session.workflow_name,
           :workflow_state => @call_session.state,
           :error          => @error,
+          :finished       => @workflow.workflow.states[@workflow.workflow.current_state].stop?,
           :twml           => twml
         }
       }

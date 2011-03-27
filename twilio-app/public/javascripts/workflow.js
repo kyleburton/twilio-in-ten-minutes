@@ -103,6 +103,7 @@ var Workflow = function () {
 
   self.serverResponse = function (data) {
     self.lastResponse = data;
+    $('#input-digits').val('');
     var content = '';
     content += "Step: " + (++self.interactionCounter) + "<br/>";
     if (data.error) {
@@ -161,11 +162,12 @@ var Workflow = function () {
     $('#conversation').html('');
     $('#input-digits').focus();
     $.ajax({
-      url: '/call_session/delete/' + self.callSid,
-      error: Workflow.ajaxError,
+      url:     '/call_session/delete/' + self.callSid,
+      error:   Workflow.ajaxError,
       success: Workflow.requestCurrentMessage,
-      type: 'DELETE'
+      type:    'DELETE'
     });
+    self.interactionCounter = 0;
     return false;
   };
 

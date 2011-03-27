@@ -69,16 +69,15 @@ class Ivrflow
   def method_missing(meth, *args, &block)
     # pressed a specific number sequence
     if meth.to_s =~ /^pressed_(\d+)\?$/
-      puts "[method_missing.#{meth.to_s}] pressed: #$1"
       return !digits.nil? && !digits.empty? && digits == $1
+    elsif meth.to_s =~ /^not_pressed_(\d+)\?$/
+      return !digits.nil? && !digits.empty? && digits != $1
     # entered a specific count of digits
     elsif meth.to_s =~ /^entered_(\d+)_digits\?$/
       num_digits = $1.to_i
-      puts "[method_missing.#{meth.to_s}] entered: #{num_digits} digits?  '#{digits}'.size=#{digits.size}"
       return !digits.nil? && !digits.empty? && digits.size == num_digits
     elsif meth.to_s =~ /^not_entered_(\d+)_digits\?$/
       num_digits = $1.to_i
-      puts "[method_missing.#{meth.to_s}] entered: #{num_digits} digits?  '#{digits}'.size=#{digits.size}"
       return !digits.nil? && !digits.empty? && digits.size != num_digits
     elsif meth.to_s =~ /^not_(.+)$/
       method = $1.to_sym
@@ -88,7 +87,6 @@ class Ivrflow
         super
       end 
     else
-      puts "[method_missing.#{meth.to_s}] passing to super..."
       super(meth, *args, &block)
     end
   end

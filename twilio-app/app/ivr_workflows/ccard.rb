@@ -27,17 +27,18 @@ card number, we attempt to upsel them on
     end
 
     state :weve_got_a_live_one do
-      transitions_to :weve_got_a_live_one,    :if => :pressed_1?
-      transitions_to :scare_user_and_hang_up, :if => :not_pressed_1?
+      transitions_to :thank_user_and_hang_up,  :if => :pressed_1?
+      transitions_to :scare_user_and_hang_up,  :if => :not_pressed_1?
     end
 
+    state :thank_user_and_hang_up,  :stop => true
     state :scare_user_and_hang_up,  :stop => true
     state :abuse_caller_and_hangup, :stop => true
   end
 
   def initialize
-    super
     self.asked_for_card_times = 0
+    super
   end
 
   def card_number_valid?
@@ -45,6 +46,7 @@ card number, we attempt to upsel them on
   end
 
   def start_message
+    self.asked_for_card_times += 1
     twml do
       gather(:digits => 16, :timeout => 20) do
         say "Welcome to the La Cosa Nostra credit card activation system."
@@ -54,6 +56,7 @@ card number, we attempt to upsel them on
   end
 
   def reask_for_card_number_message
+    self.asked_for_card_times += 1
     twml do
       gather(:digits => 16, :timeout => 20) do
         say "Oh, you're a real smart guy aren't you?"
@@ -86,6 +89,28 @@ card number, we attempt to upsel them on
         say "If you'd like us to take care of these scumbags before they cause you any trouble, press 1."
         say "Otherwise press 2."
       end
+    end
+  end
+
+  def thank_user_and_hang_up_message
+    twml do
+      say "We value your friendship and one day will ask you for a favor."
+      say "Until that time, know that we are watching.  Goodbye."
+      hangup
+    end
+  end
+
+  def scare_user_and_hang_up_message
+    twml do
+      say "It's a dangerous world out there!  Watch your back wiseguy!"
+      hangup
+    end
+  end
+
+  def abuse_caller_and_hangup_message
+    twml do
+      say "What?  Can't you read?  Forget about it."
+      hangup
     end
   end
 end
