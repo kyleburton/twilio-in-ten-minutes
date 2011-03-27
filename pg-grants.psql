@@ -1,0 +1,11 @@
+create role twilio with createdb login encrypted password 'tw9987$$5';
+
+create database twilio_app_development with owner=twilio encoding='UTF8' template template0;
+create database twilio_app_test        with owner=twilio encoding='UTF8' template template0;
+create database twilio_app_production  with owner=twilio encoding='UTF8' template template0;
+
+grant all privileges on database twilio_app_development to twilio;
+grant all privileges on database twilio_app_test        to twilio;
+grant all privileges on database twilio_app_production  to twilio;
+
+
