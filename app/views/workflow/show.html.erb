@@ -1,4 +1,7 @@
 <% content_for :js do %>
+  <script>
+    Ivr.sid = '<%= @ivr_session_id -%>';
+  </script>
   <%= javascript_include_tag 'workflow' %>
 <% end %>
 

@@ -13,6 +13,10 @@ var Workflow = function () {
 
   self.callSid = function () {
     console.log('self.sid=%s',self.sid);
+    if ( Ivr.sid !== undefined ) {
+      Workflow.sid = Ivr.sid;
+    }
+
     if ( self.sid !== null && self.sid !== "" && self.sid !== undefined ) {
       return self.sid;
     }
@@ -94,7 +98,7 @@ var Workflow = function () {
 
     self.addUserInput(digits);
     $.ajax({
-      url: '/workflow/input/' + self.workflowName() + '?' + self.randomVal(),
+      url: '/workflow/input/' + self.workflowName() + '.json?' + self.randomVal(),
       type: "POST",
       data: {
              "Caller":  $('#caller').val(),
@@ -129,9 +133,6 @@ var Workflow = function () {
       +  Ivr.formatTwml(data.twml)
       +  "</pre>"
       +  "</div>";
-          //:workflow_name  => params[:id],
-          //:workflow_state => '*none*',
-          //:twml           => '*none*'
     $('#conversation').prepend(content);
   };
 
@@ -150,7 +151,7 @@ var Workflow = function () {
 
   self.requestCurrentMessage = function () {
     $.ajax({
-      url: '/workflow/input/' + self.workflowName() + '?' + self.randomVal(),
+      url: '/workflow/input/' + self.workflowName() + '.json?' + self.randomVal(),
       type: "POST",
       data: {
              "Caller":  $('#caller').val(),

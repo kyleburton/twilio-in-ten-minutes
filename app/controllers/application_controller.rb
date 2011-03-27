@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
 
   protected
   def expire_old_sessions
+    @ivr_session_id = call_sid
     CallSession.connection.execute("select id,updated_at at time zone 'gmt' as updated_at,current_time at time zone 'gmt' as curr_time from call_sessions").each do |rec|
       t1 = Time.parse(rec["curr_time"])
       t2 = Time.parse(rec["updated_at"])
@@ -72,7 +73,7 @@ class ApplicationController < ActionController::Base
   end
 
   def call_sid
-    params['CallSid'] || ''
+    params['CallSid'] || 'Sid-' + Time.now.to_i.to_s + '-' + rand(1_000_000).to_s
   end
 
   def send_back &block
