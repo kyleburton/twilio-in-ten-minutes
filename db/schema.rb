@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(:version => 20110327031129) do
     t.string   "caller_number",           :null => false
     t.string   "workflow_name",           :null => false
     t.string   "state",                   :null => false
-    t.string   "workflow_internal_state", :null => false
+    t.text     "workflow_internal_state", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
