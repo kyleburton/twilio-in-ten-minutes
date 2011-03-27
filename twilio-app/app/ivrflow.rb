@@ -1,7 +1,7 @@
 require 'twml'
 require 'newflow'
 class Ivrflow
-  attr_accessor :digits, :workflow_state, :message
+  attr_accessor :digits, :workflow_state, :message, :history
   include Newflow
 
   def self.registered_ivr_flows
@@ -26,6 +26,7 @@ class Ivrflow
 
   def initialize
     super
+    @history = []
     set_response
   end
 

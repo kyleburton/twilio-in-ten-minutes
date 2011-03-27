@@ -11,8 +11,23 @@ var Workflow = function () {
     return self.tstamp() + "-" + Math.floor(Math.random() * 100000);
   };
 
-  self.callSid = "Sid-" + self.tstamp() 
-               + "-" + Math.floor(Math.random() * 100000);
+  self.callSid = function () {
+    console.log('self.sid=%s',self.sid);
+    if ( self.sid !== null && self.sid !== "" && self.sid !== undefined ) {
+      return sid;
+    }
+
+    var sid = $.query.get('CallSid');
+    console.log('was null or blank, trying qs=%s',sid);
+    if ( sid === null || sid === "" || sid === undefined ) {
+      sid = "Sid-" + self.tstamp() 
+          + "-" + Math.floor(Math.random() * 100000);
+      console.log('was null or blank, generating new=%s',sid);
+    }
+    self.sid = sid;
+    return self.sid;
+  };
+
   self.interactionCounter = 0;
 
   self.initialize = function () {
@@ -22,7 +37,7 @@ var Workflow = function () {
     $('#input-digits').focus();
     $('#press-digits').click(self.pressDigitsButtonClicked);
     $('#caller').val('(610) 555-1212');
-    $('#call-sid').val(self.callSid);
+    $('#call-sid').val(self.callSid());
     $('#reset').click(self.resetConversation);
     self.requestCurrentMessage();
   };
@@ -91,16 +106,6 @@ var Workflow = function () {
     return false;
   };
 
-  self.formatTwml = function(twml) {
-    twml = twml.replace(/<!--.+?-->[\r\n]?/g,"");
-    twml = twml.replace(/<\?.+?\?>[\r\n]?/g,"");
-    twml = twml.replace(/&/g,"&amp;");
-    twml = twml.replace(/>/g,"&gt;");
-    twml = twml.replace(/</g,"&lt;");
-    twml = twml.replace(/&lt;Say&gt;(.+?)&lt;\/Say&gt;/g,"&lt;Say&gt;<span class=\"twml-say\">$1</span>&lt;/Say&gt;");
-    return twml;
-  };
-
   self.serverResponse = function (data) {
     self.lastResponse = data;
     $('#input-digits').val('');
@@ -120,7 +125,7 @@ var Workflow = function () {
       +  data.workflow_name + "/" + data.workflow_state
       +  "</span>"
       +  "<pre class=\"twml\">"
-      +  self.formatTwml(data.twml)
+      +  Ivr.formatTwml(data.twml)
       +  "</pre>"
       +  "</div>";
           //:workflow_name  => params[:id],
@@ -162,7 +167,7 @@ var Workflow = function () {
     $('#conversation').html('');
     $('#input-digits').focus();
     $.ajax({
-      url:     '/call_session/delete/' + self.callSid,
+      url:     '/call_session/delete/' + self.callSid(),
       error:   Workflow.ajaxError,
       success: Workflow.requestCurrentMessage,
       type:    'DELETE'

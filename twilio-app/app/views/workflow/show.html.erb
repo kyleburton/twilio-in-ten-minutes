@@ -28,6 +28,7 @@
             <tr>
               <td><label for="caller">Call Session ID:</label></td>
               <td><input type="text" id="call-sid" name="digits" size="35" /></td>
+              <td><%= link_to "View Session", :controller => :call_session, :action => :show, :id => @call_session.id -%></td>
             </tr>
           </table>
         </fieldset>

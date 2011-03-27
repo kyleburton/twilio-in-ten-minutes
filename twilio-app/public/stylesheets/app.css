@@ -23,6 +23,7 @@ body {
   margin: 0.25em;
 }
 
+
 #main-content {
   border: 1px solid #CCC;
   padding: 3px;
@@ -53,7 +54,7 @@ body {
   display: block;
 }
 
-#active-sessions {
+#sessions-list {
   border: 1px solid #CCC;
   padding: 0.67em;
 }

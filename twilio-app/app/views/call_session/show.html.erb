@@ -1,4 +1,16 @@
-Show 
-<pre>
-<%= @call_session.to_yaml %>
-</pre>
+<% content_for :js do %>
+  <%= javascript_include_tag 'call_session' %>
+  <script type="text/javascript">
+  CallSession.sid = '<%= @call_session.session_id -%>';
+  CallSession.id  = '<%= @call_session.id -%>';
+  </script>
+<% end %>
+<div class="call-session">
+  <h3><%= @call_session.caller_number -%> : <%= @call_session.session_id -%></h3>
+  <p>
+  Workflow: <%= link_to @call_session.workflow_name, :controller => :workflow, :action => :show, :id => @call_session.workflow_name, :CallSid => @call_session.session_id  -%>
+  </p>
+  <div id="session-history">
+  </div>
+</div>
+

@@ -35,6 +35,7 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => "console"
 
   # See how all your routes lay out with "rake routes"
+  map.resources :call_session
 
   # Install the default routes as the lowest priority.
   # Note: These default routes make all actions in every controller accessible via GET requests. You should
@@ -42,5 +43,4 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 
-  map.resources :call_session
 end
