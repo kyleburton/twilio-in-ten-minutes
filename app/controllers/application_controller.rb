@@ -12,13 +12,13 @@ class ApplicationController < ActionController::Base
 
   protected
   def expire_old_sessions
-    CallSession.connection.execute("select id,updated_at,current_timestamp from call_sessions").each do |rec|
-      Rails.logger.info "EXPIRE: #{rec.inspect}"
-      t1 = Time.parse(rec["now"])
+    CallSession.connection.execute("select id,updated_at at time zone 'gmt' as updated_at,current_time at time zone 'gmt' as curr_time from call_sessions").each do |rec|
+      t1 = Time.parse(rec["curr_time"])
       t2 = Time.parse(rec["updated_at"])
       age = t1 - t2
+      #Rails.logger.info "EXPIRE: age:#{age}/#{t2-t1} #{rec.inspect}"
       if age > 120 # seconds
-        Rails.logger.info "Expiring session:#{rec["id"]} age=#{age}"
+        #Rails.logger.info "Expiring session:#{rec["id"]} age=#{age}"
         CallSession.delete(rec["id"])
       end
     end
