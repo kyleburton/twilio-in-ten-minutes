@@ -6,8 +6,14 @@ var Workflow = function () {
   self.tstamp = function () {
     return (new Date()).getTime();
   };
+  self.randomVal = function () {
 
-  self.callSid = "Sid-" + self.tstamp() + "-" + Math.floor(Math.random() * 100000);
+    return self.tstamp() + "-" + Math.floor(Math.random() * 100000);
+  };
+
+  self.callSid = "Sid-" + self.tstamp() 
+               + "-" + Math.floor(Math.random() * 100000);
+  self.interactionCounter = 0;
 
   self.initialize = function () {
     console.log("binding to click for the image...");
@@ -18,6 +24,7 @@ var Workflow = function () {
     $('#caller').val('(610) 555-1212');
     $('#call-sid').val(self.callSid);
     $('#reset').click(self.resetButtonClicked);
+    self.requestCurrentMessage();
   };
 
   self.toggleWorkflowImageSize = function (event) {
@@ -55,6 +62,7 @@ var Workflow = function () {
 
   self.addUserInput = function(input) {
     var content = "<div>"
+      + (++self.interactionCounter) + ":"
       + "<div class=\"timestamp\">"
       + "[" + (new Date()).toString() + "]"
       + "</div>"
@@ -71,13 +79,12 @@ var Workflow = function () {
 
     self.addUserInput(digits);
     $.ajax({
-      url: '/workflow/input/' + self.workflowName(),
+      url: '/workflow/input/' + self.workflowName() + '?' + self.randomVal(),
       type: "POST",
       data: {
              "Caller":  $('#caller').val(),
              "Digits":  digits,
-             "CallSid": $('#call-sid').val(),
-             "Random":  (new Date()).getTime()
+             "CallSid": $('#call-sid').val()
             },  
       success: Workflow.serverResponse,
       error: Workflow.ajaxError,
@@ -85,16 +92,40 @@ var Workflow = function () {
     return false;
   };
 
+  self.formatTwml = function(twml) {
+    twml = twml.replace(/<!--.+?-->[\r\n]?/g,"");
+    twml = twml.replace(/<\?.+?\?>[\r\n]?/g,"");
+    twml = twml.replace(/&/g,"&amp;");
+    twml = twml.replace(/>/g,"&gt;");
+    twml = twml.replace(/</g,"&lt;");
+    twml = twml.replace(/&lt;Say&gt;(.+?)&lt;\/Say&gt;/g,"&lt;Say&gt;<span class=\"twml-say\">$1</span>&lt;/Say&gt;");
+    return twml;
+  };
+
   self.serverResponse = function (data) {
     self.lastResponse = data;
-    var content = "<div class=\"server-response\">" 
-      + "[" + (new Date()).toString() + "]"
-      + data.workflow_name + "/" + data.workflow_state
-      + "</div>";
-    $('#conversation').prepend(content);
+    var content = '';
+    if (data.error) {
+      content
+        += "<div class=\"workflow-error-message\">"
+        +  data.error
+        +  "</div>";
+
+    }
+    content 
+      += "<div class=\"server-response\">" 
+      +  "<span>"
+      +  "[" + (new Date()).toString() + "]"
+      +  data.workflow_name + "/" + data.workflow_state
+      +  "</span>"
+      +  "<pre class=\"twml\">"
+      +  self.formatTwml(data.twml)
+      +  "</pre>"
+      +  "</div>";
           //:workflow_name  => params[:id],
           //:workflow_state => '*none*',
           //:twml           => '*none*'
+    $('#conversation').prepend(content);
   };
 
   self.ajaxError = function (xhr,textStatus,errThrown) {
@@ -110,13 +141,29 @@ var Workflow = function () {
     return false;
   };
 
-  self.resetButtonClicked = function () {
+  self.requestCurrentMessage = function () {
+    $.ajax({
+      url: '/workflow/input/' + self.workflowName() + '?' + self.randomVal(),
+      type: "POST",
+      data: {
+             "Caller":  $('#caller').val(),
+             "Digits":  '',
+             "CallSid": $('#call-sid').val()
+            },  
+      success: Workflow.serverResponse,
+      error: Workflow.ajaxError,
+    }); 
+    return false;
+  };
+
+  self.resetConversation = function () {
     $('#input-digits').val('');
     $('#conversation').html('');
     $('#input-digits').focus();
     $.ajax({
       url: '/call_session/delete/' + self.callSid,
       error: Workflow.ajaxError,
+      success: Workflow.requestCurrentMessage,
       type: 'DELETE'
     });
     return false;

@@ -76,3 +76,13 @@ body {
   color: #777;
   text-align: center;
 }
+
+.workflow-error-message {
+  color: #F44;
+  font-style: bold;
+}
+
+.twml-say {
+  font-size: 2em;
+  font-style: bold;
+}

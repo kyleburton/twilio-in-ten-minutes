@@ -3,7 +3,6 @@ h1. Twilio In Ten Minutes
 This is the companion source code for the blog post / guide:  "Twilio In Ten
 Minutes":http://asymmetrical-view.com/2011/02/20/twilio-in-ten-minutes.html
 
-
 h1. Philly Lambda Talk April 2011
 
 h2. Instant Cloud Based Telephony Applications with Twilio and Heroku
@@ -122,3 +121,7 @@ Because calling my app with a phone and pressing buttons took too long, I built 
 web console where I could interact with the state machine vai the browser and
 test the same flow w/o having to call.
 
+
+h3. Images and Credits
+
+http://www.says-it.com/seal/circle.php

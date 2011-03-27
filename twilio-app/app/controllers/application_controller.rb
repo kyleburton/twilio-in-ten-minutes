@@ -9,20 +9,4 @@ class ApplicationController < ActionController::Base
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
-
-  def digits
-    params['Digits'] || ''
-  end
-
-  def caller
-    params['Caller'] || ''
-  end
-
-  def send_back &block
-    t = TWML.new do
-      instance_eval &block
-    end
-    render :text => t.twml
-  end
-
 end
