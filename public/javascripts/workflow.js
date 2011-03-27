@@ -103,7 +103,7 @@ var Workflow = function () {
       data: {
              "Caller":  $('#caller').val(),
              "Digits":  digits,
-             "CallSid": $('#call-sid').val()
+             "CallSid": self.callSid()
             },  
       success: Workflow.serverResponse,
       error: Workflow.ajaxError,
@@ -156,7 +156,7 @@ var Workflow = function () {
       data: {
              "Caller":  $('#caller').val(),
              "Digits":  '',
-             "CallSid": $('#call-sid').val()
+             "CallSid": self.callSid()
             },  
       success: Workflow.serverResponse,
       error: Workflow.ajaxError,

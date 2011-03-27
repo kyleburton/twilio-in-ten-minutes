@@ -73,7 +73,7 @@ class ApplicationController < ActionController::Base
   end
 
   def call_sid
-    params['CallSid'] || 'Sid-' + Time.now.to_i.to_s + '-' + rand(1_000_000).to_s
+    params['CallSid'] ||= 'Sid-' + Time.now.to_i.to_s + '-' + rand(1_000_000).to_s
   end
 
   def send_back &block
