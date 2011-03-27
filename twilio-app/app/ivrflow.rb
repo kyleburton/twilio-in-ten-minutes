@@ -18,7 +18,7 @@ class Ivrflow
 
   def self.desc d
     @@ivr_flows ||= {}
-    puts "Self: #{self}"
+    #puts "Self: #{self}"
     @@ivr_flows[self.to_s] = {
       :desc => d
     }
