@@ -3,6 +3,15 @@ h1. Twilio In Ten Minutes
 This is the companion source code for the blog post / guide:  "Twilio In Ten
 Minutes":http://asymmetrical-view.com/2011/02/20/twilio-in-ten-minutes.html
 
+To interact with the appilcation, call 
+
+  (415) 599-2671 
+
+and, when prompted, enter the pin 
+
+  (3388-2105)
+
+
 h1. Philly Lambda Talk April 2011
 
 h2. Instant Cloud Based Telephony Applications with Twilio and Heroku

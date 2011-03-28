@@ -17,9 +17,9 @@ class ApplicationController < ActionController::Base
       t1 = Time.parse(rec["curr_time"])
       t2 = Time.parse(rec["updated_at"])
       age = t1 - t2
-      #Rails.logger.info "EXPIRE: age:#{age}/#{t2-t1} #{rec.inspect}"
+      Rails.logger.info "EXPIRE: age:#{age}/#{t2-t1} #{rec.inspect}"
       if age > 120 # seconds
-        #Rails.logger.info "Expiring session:#{rec["id"]} age=#{age}"
+        Rails.logger.info "Expiring session:#{rec["id"]} age=#{age}"
         CallSession.delete(rec["id"])
       end
     end
