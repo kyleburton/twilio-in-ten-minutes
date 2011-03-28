@@ -60,7 +60,7 @@ class Ivrflow
       #require 'ruby-debug'; debugger
       if @@message_procs[self.class] && @@message_procs[self.class][state.to_sym]
         p = @@message_procs[self.class][state.to_sym]
-        t = TWML.new &p
+        t = TWML.new self, &p
         return @message = t.twml
       else
         raise "Error: workflow #{self} must implment #{meth} to build the TWML for state #{state}"
@@ -97,6 +97,7 @@ class Ivrflow
         super
       end 
     else
+      puts "DEFERRING TO SUPER: #{meth}"
       super(meth, *args, &block)
     end
   end

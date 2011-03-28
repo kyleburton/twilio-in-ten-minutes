@@ -47,9 +47,10 @@ class TWML
     make_emtpy_tag_fn name, tag
   end
 
-  def initialize &block
+  def initialize instance=nil, &block
     @body = '';
     @ended = false
+    @instance = instance
     instance_eval &block if block_given?
     return @body if @body.nil? || @body.empty?
     @twml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -98,6 +99,14 @@ class TWML
 
   def play url, opts={}
     @body += "<Play#{_attrs opts}>#{url}</Play>"
+  end
+
+  def method_missing(meth,*args,&block)
+    if @instance.respond_to? meth.to_sym
+      @instance.send meth.to_sym, *args
+    else
+      super
+    end
   end
 
 end
