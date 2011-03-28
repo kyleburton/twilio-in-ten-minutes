@@ -57,7 +57,6 @@ card number, we attempt to upsel them on
   end
 
   message :reask_for_card_number do
-    puts "SELF:#{self}"
     retries = 3 - asked_for_card_times
     gather(:numDigits => 16, :timeout => 20) do
       say "Oh, you're a real smart guy aren't you?"
@@ -67,27 +66,14 @@ card number, we attempt to upsel them on
   end
 
 
-  #def reask_for_card_number_message
-  #  retries = 3 - @asked_for_card_times
-  #  twml do
-  #    gather(:numDigits => 16, :timeout => 20) do
-  #      say "Oh, you're a real smart guy aren't you?"
-  #      say "You have #{retries+1} chances left."
-  #      say "Enter your 16 digit card number for real this time!"
-  #    end
-  #  end
-  #end
-
-  def ask_for_expensive_services_message
-    twml do
-      gather(:numDigits => 1, :timeout => 20) do
-        say "Hey, well done there."
-        say "Listen, somebody could steal your identity and make charges on your card."
-        say "You want we should break their legs?"
-        say "This protection is only $99 a month."
-        say "To accept this contract press 1, otherwise press 2."
-        say "Don't say we didn't warn you."
-      end
+  message :ask_for_expensive_services do
+    gather(:numDigits => 1, :timeout => 20) do
+      say "Hey, well done there."
+      say "Listen, somebody could steal your identity and make charges on your card."
+      say "You want we should break their legs?"
+      say "This protection is only $99 a month."
+      say "To accept this contract press 1, otherwise press 2."
+      say "Don't say we didn't warn you."
     end
   end
 
@@ -95,35 +81,27 @@ card number, we attempt to upsel them on
     @asked_for_card_times >= 3
   end
 
-  def weve_got_a_live_one_message
-    twml do
-      gather(:numDigits => 1, :timeout => 20) do
-        say "It is a reasonable person indeed who values protection."
-        say "If you'd like us to take care of these scumbags before they cause you any trouble, press 1."
-        say "Otherwise press 2."
-      end
+  message :weve_got_a_live_one do
+    gather(:numDigits => 1, :timeout => 20) do
+      say "It is a reasonable person indeed who values protection."
+      say "If you'd like us to take care of these scumbags before they cause you any trouble, press 1."
+      say "Otherwise press 2."
     end
   end
 
-  def thank_user_and_hang_up_message
-    twml do
-      say "Consider it done.  We value your friendship and one day will ask you for a favor."
-      say "Until that time, know that we are watching.  Goodbye."
-      hangup
-    end
+  message :thank_user_and_hang_up do
+    say "Consider it done.  We value your friendship and one day will ask you for a favor."
+    say "Until that time, know that we are watching.  Goodbye."
+    hangup
   end
 
-  def scare_user_and_hang_up_message
-    twml do
-      say "It's a dangerous world out there!  Watch your back wiseguy!"
-      hangup
-    end
+  message :scare_user_and_hang_up_message do
+    say "It's a dangerous world out there!  Watch your back wiseguy!"
+    hangup
   end
 
-  def abuse_caller_and_hangup_message
-    twml do
-      say "Whats amatter you?  Forget about it."
-      hangup
-    end
+  message :abuse_caller_and_hangup do
+    say "Whats amatter you?  Forget about it."
+    hangup
   end
 end
