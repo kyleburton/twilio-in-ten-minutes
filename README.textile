@@ -130,7 +130,33 @@ Because calling my app with a phone and pressing buttons took too long, I built 
 web console where I could interact with the state machine vai the browser and
 test the same flow w/o having to call.
 
+h3. Internet Penetration
+
+http://www.google.com/publicdata?ds=wb-wdi&met=it_net_user&idim=country:USA&dl=en&hl=en&q=internet+penetration#met=it_net_user&idim=country:USA&tdim=true
+
+http://data.worldbank.org/indicator/IT.NET.USER?cid=GPD_58
+
+1.586 Billion of 6.91
+
+22.9% have access to the internet
+
+http://en.wikipedia.org/wiki/List_of_countries_by_number_of_mobile_phones_in_use
+
+There are over 5 Billion mobile phones in the world.
+
+Nepal is the lowest listed on Wikipedia at 35.09% - significantly more than 
 
 h3. Images and Credits
 
 http://www.says-it.com/seal/circle.php
+
+http://www.flickr.com/photos/raindog808/229655120/sizes/z/in/photostream/
+http://www.flickr.com/photos/zigazou76/4482734462/sizes/l/in/photostream/
+http://www.flickr.com/photos/aussiegall/279804967/
+http://www.flickr.com/photos/sanberdoo/510894918/
+http://www.flickr.com/photos/plenty/3360322975/
+http://www.flickr.com/photos/dmuth/5147376268/
+http://www.flickr.com/photos/furryscalyman/1034889957/
+http://www.flickr.com/photos/joshsemans/3595245177/
+http://www.flickr.com/photos/albany_tim/4030019937/
+http://en.wikipedia.org/wiki/File:CryptoCard_two_factor.jpg
