@@ -7,6 +7,9 @@ class ConsoleController < ApplicationController
 
   def active_sessions
     @active_sessions = CallSession.find(:all)
+    @active_sessions.each do |s|
+      s.caller_number = "*web console*" if s.caller_number.nil? || s.caller_number.empty?
+    end
     @registered_workflows = Ivrflow.registered_ivr_flows
     respond_to do |fmt|
       fmt.json { render :json => @active_sessions }

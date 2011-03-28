@@ -14,7 +14,8 @@ class ApplicationController < ActionController::Base
   def expire_old_sessions
     @ivr_session_id = call_sid
     CallSession.connection.execute("select id,updated_at at time zone 'gmt' as updated_at,now() at time zone 'gmt' as curr_time from call_sessions").each do |rec|
-      t1 = Time.parse(rec["curr_time"])
+      #require 'ruby-debug'; debugger; 1
+      t1 = Time.now
       t2 = Time.parse(rec["updated_at"])
       age = t1 - t2
       Rails.logger.info "EXPIRE: age:#{age}/#{t2-t1} #{rec.inspect}"
@@ -49,7 +50,7 @@ class ApplicationController < ActionController::Base
       @workflow     = workflow_name.constantize.new
       @workflow.history << { :state => @workflow.current_state, :message => @workflow.message }
       internal_state = @workflow.serialize_workflow
-      Rails.logger.info "workflow state is:'#{internal_state}'"
+      Rails.logger.info "creating new session with sid=#{call_sid}"
       @call_session = CallSession.create(
         :session_id     => call_sid,
         :caller_number  => caller_number,
