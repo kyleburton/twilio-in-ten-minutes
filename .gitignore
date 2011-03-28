@@ -3,3 +3,4 @@ README.textile.html
 .bundle
 db/*.sqlite3
 tmp/
+out.txt

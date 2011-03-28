@@ -45,14 +45,21 @@ card number, we attempt to upsel them on
     digits.size == 16
   end
 
-  def start_message
-    twml do
-      gather(:numDigits => 16, :timeout => 20) do
-        say "Welcome to the La Cosa Nostra credit card activation system."
-        say "Please enter your 16 digit card number."
-      end
+  message :start do
+    gather(:numDigits => 16, :timeout => 20) do
+      say "Welcome to the La Cosa Nostra credit card activation system."
+      say "Please enter your 16 digit card number."
     end
   end
+
+  #def start_message
+  #  twml do
+  #    gather(:numDigits => 16, :timeout => 20) do
+  #      say "Welcome to the La Cosa Nostra credit card activation system."
+  #      say "Please enter your 16 digit card number."
+  #    end
+  #  end
+  #end
 
   def reasked_for_card_number
     @asked_for_card_times += 1

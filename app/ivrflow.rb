@@ -3,6 +3,7 @@ require 'newflow'
 class Ivrflow
   attr_accessor :digits, :workflow_state, :message, :history
   include Newflow
+  @@message_procs = {}
 
   def self.registered_ivr_flows
     @@ivr_flows
@@ -53,9 +54,17 @@ class Ivrflow
   end
 
   def set_response
-    meth = "#{workflow_state.to_s}_message".to_sym
+    state = workflow_state.to_s
+    meth = "#{state}_message".to_sym
     if !self.respond_to? meth
-      raise "Error: workflow #{self} must implment #{meth} to build the TWML for state #{workflow_state.to_s}"
+      #require 'ruby-debug'; debugger
+      if @@message_procs[self.class] && @@message_procs[self.class][state.to_sym]
+        p = @@message_procs[self.class][state.to_sym]
+        t = TWML.new &p
+        return @message = t.twml
+      else
+        raise "Error: workflow #{self} must implment #{meth} to build the TWML for state #{state}"
+      end
     end
     @message = self.send meth
   end
@@ -90,5 +99,12 @@ class Ivrflow
     else
       super(meth, *args, &block)
     end
+  end
+
+  def self.message(state,&block)
+    puts "[#{self}] message for #{state.inspect} via block:#{block}"
+    @@message_procs       ||= {}
+    @@message_procs[self] ||= {}
+    @@message_procs[self][state] = block
   end
 end
