@@ -4,3 +4,4 @@ README.textile.html
 db/*.sqlite3
 tmp/
 out.txt
+report.html

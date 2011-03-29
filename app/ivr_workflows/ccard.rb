@@ -95,7 +95,7 @@ card number, we attempt to upsel them on
     hangup
   end
 
-  message :scare_user_and_hang_up_message do
+  message :scare_user_and_hang_up do
     say "It's a dangerous world out there!  Watch your back wiseguy!"
     hangup
   end
