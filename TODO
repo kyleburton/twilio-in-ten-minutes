@@ -1,3 +1,8 @@
+* Configuration
+  * Given the base URL from Twilio, if we ask the user for their Twilio account credentials
+  * can we create the config/twilio.yml for them?
+  * can we even set the app's url via a Twilio api? -- at least for the sandbox.
+
 * Workflow Testing
   * State Machine Correctness
     * Assert that there is a 'message' or a handler for each state 
