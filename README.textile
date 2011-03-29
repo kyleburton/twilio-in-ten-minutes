@@ -14,7 +14,7 @@ You have signed up for Twilio and Heroku (see "An Interactive Voice Response Sys
 
 h1. Installation
 
-The project was developed to be deployed to "Heroku":http://heroku.com/.  Because of this, it makes use of a postgres databse.  To initialize your databse, install PostgreSQL and perform the the following grants (also found in the pg-grants.psql file):
+The project was developed to be deployed to "Heroku":http://heroku.com/.  Because of this, it makes use of a postgres database.  To initialize your database, install PostgreSQL and perform the the following grants (also found in the pg-grants.psql file):
 
 <pre>
 create role twilio with createdb login encrypted password 'tw9987$$5';
