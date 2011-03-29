@@ -61,6 +61,8 @@ Terminates the phone call.
 
 h2. Newflow Gem
 
+The gem has been customized to allow states to transition to themselves while still executing triggers.
+
 h2. Ivrflow
 
 Implement your workflow as you would with Newflow, declaring the states, transitions, predicates and triggers.  The @Ivrflow@ base class and the @workflow_controller@ will handle managing the state of your workflow in the database.  For each state you declare, you can either implement a @#{state_name}_message@ method, or declare a @message@ block using the DSL:
