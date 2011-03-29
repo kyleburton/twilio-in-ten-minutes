@@ -103,7 +103,7 @@ class Ivrflow
   end
 
   def self.message(state,&block)
-    puts "[#{self}] message for #{state.inspect} via block:#{block}"
+    #puts "[#{self}] message for #{state.inspect} via block:#{block}"
     @@message_procs       ||= {}
     @@message_procs[self] ||= {}
     @@message_procs[self][state] = block

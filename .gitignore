@@ -5,3 +5,4 @@ db/*.sqlite3
 tmp/
 out.txt
 report.html
+config/twilio.yml

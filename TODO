@@ -1,5 +1,8 @@
-* cucumber for testing the workflows
-* for example CCard / La Cosa Nostra 
+* Workflow Testing
+  * State Machine Correctness
+    * Assert that there is a 'message' or a handler for each state 
+    * show those warnings via rake & in the console
+
+* SMS Example for example CCard / La Cosa Nostra 
   * on 'scare and hang up', send an SMS: "Speical Message From La Cosa Nostra: You will sleep with the fishes!"
   * on 'thank user and hang up', send an SMS: "Special Message From La Cosa Nostra: We've got your back Pisan!"
-* Assert that there is a 'message' or a handler for each state.
