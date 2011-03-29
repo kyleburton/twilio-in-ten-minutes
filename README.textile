@@ -1,162 +1,56 @@
-h1. Twilio In Ten Minutes
+h1. Awesome IVR!
 
-This is the companion source code for the blog post / guide:  "Twilio In Ten
-Minutes":http://asymmetrical-view.com/2011/02/20/twilio-in-ten-minutes.html
+Twilio IVR Development Framework
 
-To interact with the appilcation, call 
+This project includes a few parts: a gem for generating "TWML":http://www.twilio.com/docs/api/twiml/ (Twilio's markup language); a modified "Newflow":https://github.com/trotter/newflow; and an IVR Workflow base class.
 
-  (415) 599-2671 
+h1. Prerequisits
 
-and, when prompted, enter the pin 
+You have PostgreSQL installed and have administrative access.  
 
-  (3388-2105)
+You have signed up for Twilio and Heroku (see "An Interactive Voice Response System in 10 Minutes":http://asymmetrical-view.com/2011/02/20/twilio-in-ten-minutes.html for a walk through of signing up for these services).
 
+h1. Installation
 
-h1. Philly Lambda Talk April 2011
+The project was developed to be deployed to "Heroku":http://heroku.com/.  Because of this, it makes use of a postgres databse.  To initialize your databse, install PostgreSQL and perform the the following grants (also found in the pg-grants.psql file):
 
-h2. Instant Cloud Based Telephony Applications with Twilio and Heroku
+<code>
+create role twilio with createdb login encrypted password 'tw9987$$5';
 
-Using Services that did not exist 5 years ago, you can now build Interactive
-Voice Response and interactive SMS applications easily and quickly.  Twilio 
-provides the hooks into the Phone and SMS networks and Heroku lets you run
-the back-end for little to no cost.
+create database twilio_app_development with owner=twilio encoding='UTF8' template template0;
+create database twilio_app_test        with owner=twilio encoding='UTF8' template template0;
 
-  Heroku: 2007
-  Twilio: 2009(?) 2007(?)
+grant all privileges on database twilio_app_development to twilio;
+grant all privileges on database twilio_app_test        to twilio;
+</code>
 
-In this talk I'll talk about the business need that lead us down the path of
-creating our own IVR prototyping environment, how the services and technology
-all fits together.  Finally I'll provide you with and walk you through my
-framework for state machine based IVR application development.
 
-h3. Title Slide
+h3. Heroku
 
-Just add Water: Instant Cloud Based Telephony Applications with Twilio and Heroku
+When you deploy to Heroku they will create a database and set the configuration for your dyno.
 
-h3. IVR
+Once you've allocated your Heroku instance, not your application's hostname for when you configure Twilio.
 
-  Interactive Voice Response System
+h3. Twilio
 
-  Telephony Application
+In your dashboard, fill in the 'Voice URL' box with your Heroku applicaiton's URL followed by @/workflow/CCard@.  This will configure Twilio to use the sample credit card activaiton flow when you call your sandbox phone number.
 
-  Audio 'Menu'
+h1. Components
 
-h3. What is Twilio?
+h2. TWML Gem
 
-Cloud based telephony.
+This gem provides an internal DSL for Ruby for generating Twillio Markup Language.  See the file @app/ivr_workflows/ccard.rb@, or the spec tests in @twml/spec@ for examples of using the TWML gem.
 
-Integration between the phone system and webhooks.
+h2. Newflow Gem
 
-TWML over HTTP.
+h2. Ivrflow
 
-Sign up for a $30 credit.  Good for 3k mins in the sandbox!
+h1. Developing Workflows : Ivrflow
 
-Not free, but...hold on, for a good long time that's free.
 
-h3. What is Heroku?
+h1. Testing 
 
-PaaS.  Platform as a Service.
+h2. Ineractive Testing Uisng the Web Console
 
-They host and run Rails apps.  Smallest account is free.  FREE!
+h2. Cucumber
 
-Comes with 5mb of DB for free!
-
-This is more than enough for prototyping.
-
-h3. What did Relay want?
-
-We have a 'for real' IVR vendor.  They handle things at _scale_ and are very
-robust, reliable and integrate with partner organizations.
-
-We wanted to test out changes to see the effect on:
-
- - call length (we're charged by the 6s block)
- - error input rates
- - adoption rate
- - just how it sounds
-
-Some of this is standard A/B testing.  
-
-h3. Why did we want it?
-
- [PIC OF MONEY]
- [PIC OF A CLOCK]
-
-The IVR Vendor needed 24hrs to turn around changes, they charged us $$ to do
-the prototypes, and we had to spend time documenting the flows before they
-could be implemented and have the voice recording done.
-
-We just wanted to play with the different flows before we committed to sending
-them to the real IVR.
-
-h3. What did we build: Diagram
-
-  Cell/Land Phone  --> Twilio  --> [webhook] --> Heroku (your rails app)
-
-h3. So how do you do this?
-
-When someone calls your app, either in the sandbox or a phone number you lease,
-Twilio makes an HTTP request to a URL you provide.
-
-h3. TWML
-
-In response, they expect you to provide an XML document in TWML : Twilio Markup
-Language.
-
-In TWML, you can do things like: speak text, play an mp3, ask for input, record
-the caller's voice, send an sms, forward the call to another number, conference
-the call with other phone numbers and, of course, hang up.
-
-h3. TWML
-
-Simple say / gather example
-
-
-
-Our flows started out pertty simple.  Then as product saw that they could
-request a change, they rapidly got the courage to ask for more and more complex
-interactions.
-
-h3. Newflow: Ruby State Machine Library
-
-So I integrated a full state machine into the frameowrk.
-
-Because I have a hard time tracing the states in my head, I used Newflow's
-dotty rendering feature.
-
-h3. Web Console
-
-Because calling my app with a phone and pressing buttons took too long, I built a
-web console where I could interact with the state machine vai the browser and
-test the same flow w/o having to call.
-
-h3. Internet Penetration
-
-http://www.google.com/publicdata?ds=wb-wdi&met=it_net_user&idim=country:USA&dl=en&hl=en&q=internet+penetration#met=it_net_user&idim=country:USA&tdim=true
-
-http://data.worldbank.org/indicator/IT.NET.USER?cid=GPD_58
-
-1.586 Billion of 6.91
-
-22.9% have access to the internet
-
-http://en.wikipedia.org/wiki/List_of_countries_by_number_of_mobile_phones_in_use
-
-There are over 5 Billion mobile phones in the world.
-
-Nepal is the lowest listed on Wikipedia at 35.09% - significantly more than 
-
-h3. Images and Credits
-
-http://www.says-it.com/seal/circle.php
-
-http://www.flickr.com/photos/raindog808/229655120/sizes/z/in/photostream/
-http://www.flickr.com/photos/zigazou76/4482734462/sizes/l/in/photostream/
-http://www.flickr.com/photos/aussiegall/279804967/
-http://www.flickr.com/photos/sanberdoo/510894918/
-http://www.flickr.com/photos/plenty/3360322975/
-http://www.flickr.com/photos/dmuth/5147376268/
-http://www.flickr.com/photos/furryscalyman/1034889957/
-http://www.flickr.com/photos/joshsemans/3595245177/
-http://www.flickr.com/photos/albany_tim/4030019937/
-http://en.wikipedia.org/wiki/File:CryptoCard_two_factor.jpg

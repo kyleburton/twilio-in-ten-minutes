@@ -1,0 +1,162 @@
+h1. Twilio In Ten Minutes
+
+This is the companion source code for the blog post / guide:  "Twilio In Ten
+Minutes":http://asymmetrical-view.com/2011/02/20/twilio-in-ten-minutes.html
+
+To interact with the appilcation, call 
+
+  (415) 599-2671 
+
+and, when prompted, enter the pin 
+
+  (3388-2105)
+
+
+h1. Philly Lambda Talk April 2011
+
+h2. Instant Cloud Based Telephony Applications with Twilio and Heroku
+
+Using Services that did not exist 5 years ago, you can now build Interactive
+Voice Response and interactive SMS applications easily and quickly.  Twilio 
+provides the hooks into the Phone and SMS networks and Heroku lets you run
+the back-end for little to no cost.
+
+  Heroku: 2007
+  Twilio: 2009(?) 2007(?)
+
+In this talk I'll talk about the business need that lead us down the path of
+creating our own IVR prototyping environment, how the services and technology
+all fits together.  Finally I'll provide you with and walk you through my
+framework for state machine based IVR application development.
+
+h3. Title Slide
+
+Just add Water: Instant Cloud Based Telephony Applications with Twilio and Heroku
+
+h3. IVR
+
+  Interactive Voice Response System
+
+  Telephony Application
+
+  Audio 'Menu'
+
+h3. What is Twilio?
+
+Cloud based telephony.
+
+Integration between the phone system and webhooks.
+
+TWML over HTTP.
+
+Sign up for a $30 credit.  Good for 3k mins in the sandbox!
+
+Not free, but...hold on, for a good long time that's free.
+
+h3. What is Heroku?
+
+PaaS.  Platform as a Service.
+
+They host and run Rails apps.  Smallest account is free.  FREE!
+
+Comes with 5mb of DB for free!
+
+This is more than enough for prototyping.
+
+h3. What did Relay want?
+
+We have a 'for real' IVR vendor.  They handle things at _scale_ and are very
+robust, reliable and integrate with partner organizations.
+
+We wanted to test out changes to see the effect on:
+
+ - call length (we're charged by the 6s block)
+ - error input rates
+ - adoption rate
+ - just how it sounds
+
+Some of this is standard A/B testing.  
+
+h3. Why did we want it?
+
+ [PIC OF MONEY]
+ [PIC OF A CLOCK]
+
+The IVR Vendor needed 24hrs to turn around changes, they charged us $$ to do
+the prototypes, and we had to spend time documenting the flows before they
+could be implemented and have the voice recording done.
+
+We just wanted to play with the different flows before we committed to sending
+them to the real IVR.
+
+h3. What did we build: Diagram
+
+  Cell/Land Phone  --> Twilio  --> [webhook] --> Heroku (your rails app)
+
+h3. So how do you do this?
+
+When someone calls your app, either in the sandbox or a phone number you lease,
+Twilio makes an HTTP request to a URL you provide.
+
+h3. TWML
+
+In response, they expect you to provide an XML document in TWML : Twilio Markup
+Language.
+
+In TWML, you can do things like: speak text, play an mp3, ask for input, record
+the caller's voice, send an sms, forward the call to another number, conference
+the call with other phone numbers and, of course, hang up.
+
+h3. TWML
+
+Simple say / gather example
+
+
+
+Our flows started out pertty simple.  Then as product saw that they could
+request a change, they rapidly got the courage to ask for more and more complex
+interactions.
+
+h3. Newflow: Ruby State Machine Library
+
+So I integrated a full state machine into the frameowrk.
+
+Because I have a hard time tracing the states in my head, I used Newflow's
+dotty rendering feature.
+
+h3. Web Console
+
+Because calling my app with a phone and pressing buttons took too long, I built a
+web console where I could interact with the state machine vai the browser and
+test the same flow w/o having to call.
+
+h3. Internet Penetration
+
+http://www.google.com/publicdata?ds=wb-wdi&met=it_net_user&idim=country:USA&dl=en&hl=en&q=internet+penetration#met=it_net_user&idim=country:USA&tdim=true
+
+http://data.worldbank.org/indicator/IT.NET.USER?cid=GPD_58
+
+1.586 Billion of 6.91
+
+22.9% have access to the internet
+
+http://en.wikipedia.org/wiki/List_of_countries_by_number_of_mobile_phones_in_use
+
+There are over 5 Billion mobile phones in the world.
+
+Nepal is the lowest listed on Wikipedia at 35.09% - significantly more than 
+
+h3. Images and Credits
+
+http://www.says-it.com/seal/circle.php
+
+http://www.flickr.com/photos/raindog808/229655120/sizes/z/in/photostream/
+http://www.flickr.com/photos/zigazou76/4482734462/sizes/l/in/photostream/
+http://www.flickr.com/photos/aussiegall/279804967/
+http://www.flickr.com/photos/sanberdoo/510894918/
+http://www.flickr.com/photos/plenty/3360322975/
+http://www.flickr.com/photos/dmuth/5147376268/
+http://www.flickr.com/photos/furryscalyman/1034889957/
+http://www.flickr.com/photos/joshsemans/3595245177/
+http://www.flickr.com/photos/albany_tim/4030019937/
+http://en.wikipedia.org/wiki/File:CryptoCard_two_factor.jpg
