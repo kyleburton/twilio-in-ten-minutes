@@ -36,28 +36,28 @@ An example is provided here:
 
 <pre>
 development:
-  account_sid:      "'Account SID' from https://www.twilio.com/user/account/**"
+  account_sid:      "'Account SID' from https://www.twilio.com/user/account/"
   auth_token:       "'Auth Token' from https://www.twilio.com/user/account/"
   base_url:         "https://api.twilio.com/2010-04-01"
   ivr_phone_number: "'Number' from https://www.twilio.com/user/account/"
   sandbox_pin:      "'PIN' from https://www.twilio.com/user/account/"
 
 test:
-  account_sid:      "'Account SID' from https://www.twilio.com/user/account/**"
+  account_sid:      "'Account SID' from https://www.twilio.com/user/account/"
   auth_token:       "'Auth Token' from https://www.twilio.com/user/account/"
   base_url:         "https://api.twilio.com/2010-04-01"
   ivr_phone_number: "'Number' from https://www.twilio.com/user/account/"
   sandbox_pin:      "'PIN' from https://www.twilio.com/user/account/"
 
 staging:
-  account_sid:      "'Account SID' from https://www.twilio.com/user/account/**"
+  account_sid:      "'Account SID' from https://www.twilio.com/user/account/"
   auth_token:       "'Auth Token' from https://www.twilio.com/user/account/"
   base_url:         "https://api.twilio.com/2010-04-01"
   ivr_phone_number: "'Number' from https://www.twilio.com/user/account/"
   sandbox_pin:      "'PIN' from https://www.twilio.com/user/account/"
 
 production:
-  account_sid:      "'Account SID' from https://www.twilio.com/user/account/**"
+  account_sid:      "'Account SID' from https://www.twilio.com/user/account/"
   auth_token:       "'Auth Token' from https://www.twilio.com/user/account/"
   base_url:         "https://api.twilio.com/2010-04-01"
   ivr_phone_number: "'Number' from https://www.twilio.com/user/account/"
