@@ -8,6 +8,8 @@ h1. Prerequisits
 
 You have PostgreSQL installed and have administrative access.  
 
+To render the workflows you will need to have GraphViz installed (the @dot@ tool is required).
+
 You have signed up for Twilio and Heroku (see "An Interactive Voice Response System in 10 Minutes":http://asymmetrical-view.com/2011/02/20/twilio-in-ten-minutes.html for a walk through of signing up for these services).
 
 h1. Installation
@@ -41,16 +43,80 @@ h2. TWML Gem
 
 This gem provides an internal DSL for Ruby for generating Twillio Markup Language.  See the file @app/ivr_workflows/ccard.rb@, or the spec tests in @twml/spec@ for examples of using the TWML gem.
 
+h3. gather
+
+|Parameter|Description|
+|:numDigits|The number of digits to allow for input.|
+|:timeout|The number of seconds to wait for the caller to complete their input.|
+
+Used for gathering input from the caller.  @gather@ statemens may be cut short by user in put.  If you put one or more @say@ statements in a @gather@ block, any input will cut them short, while @say@ statements outside of a @gather@ will complete before input is taken.
+
+h3. say
+
+Used to invoke Twilio's speech synthesizer to talk to the caller.
+
+h3. hangup
+
+Terminates the phone call.
+
 h2. Newflow Gem
 
 h2. Ivrflow
 
-h1. Developing Workflows : Ivrflow
+Implement your workflow as you would with Newflow, declaring the states, transitions, predicates and triggers.  The @Ivrflow@ base class and the @workflow_controller@ will handle managing the state of your workflow in the database.  For each state you declare, you can either implement a @#{state_name}_message@ method, or declare a @message@ block using the DSL:
 
+<pre>
+class MyFlow < Ivrflow
+  define_workflow do
+    state :start, :start => true do
+      transitions_to :stop, :if :pressed_1?
+      transitions_to :stop, :if :not_pressed_1?
+    end
+    state :stop, :stop => true
+  end
+
+  message :start do
+    gather(:numDigits => 1, :timeout => 10) do
+      say "Hello there, press 1 or 2 please."
+    end
+  end
+
+  message :stop do
+    say "Thanks for calling!"
+    hangup
+  end
+end
+</pre>
+
+h3. Method Missing or Automatic Methods
+
+h3. @pressed_(digits)?@
+
+Used to test if the user has entered a specific set of digits, eg:  @pressed_1?@, @pressed_10?@
+
+h3. @not_(predicate)?@
+
+This form will invert the logic (convienient for trigger functions) of any method that your worklfow supports.  Eg: @not_pressed_1?@
+
+h3. @(state_name)_message@
+
+If you don't declare the message for a state using the @message@ declaration, the framework will look for and call a method composed of the name of the state plus a @_message@ suffix.
+
+h1. Developing Workflows : Ivrflow
 
 h1. Testing 
 
 h2. Ineractive Testing Uisng the Web Console
 
+Visit your application's root @/@ and you should see a list of the registered workflows in the top left.  Clicking on a workflow name will bring up a console that allows you to interact with the workflow.
+
 h2. Cucumber
+
+Your IVR Workflows may be tested via the "Cucumber":http://cukes.info/ BDD testing tool.  The framework has been extended to support calling into the IVR application framework.  Please have a look at @features/ccard.feature@ for an example of how to write test for your workflow.
+
+h1. Spying on Sessions with the Web Console
+
+h1. Rendering the Workflows
+
+To render the workflows you will need to have GraphViz installed, then execute: @rake ivr:render_workflows@
 
