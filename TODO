@@ -2,6 +2,8 @@
   * Given the base URL from Twilio, if we ask the user for their Twilio account credentials
   * can we create the config/twilio.yml for them?
   * can we even set the app's url via a Twilio api? -- at least for the sandbox.
+  * could provide rake tasks that allow easy integration w/Twilio's REST api, see:
+       http://www.twilio.com/docs/api/rest/account
 
 * Workflow Testing
   * State Machine Correctness
