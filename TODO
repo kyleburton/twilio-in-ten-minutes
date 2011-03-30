@@ -13,3 +13,11 @@
 * SMS Example for example CCard / La Cosa Nostra 
   * on 'scare and hang up', send an SMS: "Speical Message From La Cosa Nostra: You will sleep with the fishes!"
   * on 'thank user and hang up', send an SMS: "Special Message From La Cosa Nostra: We've got your back Pisan!"
+
+* Other Examples
+  * Automated RSVP Line + SMS RSVPs
+    * allow pre-registration of #'s
+    * include pref: phone call vs sms
+    * allow party organizer to qualify a set of phone#'s 
+      * select by checkboxes, or previous party, or tags?
+    * robocall or sms blast to ask for rsvp!
