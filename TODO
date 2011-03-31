@@ -1,3 +1,12 @@
+* Development / Deployment
+  * Based on the interactive console, if the server is run in devleopment
+  * mode, allow [basic] workflows to be created / edited
+  * then have a 'Deploy' button that pushes the repo up to Heroku
+
+
+* Documentaiton
+  * write up docs as part of the web console
+
 * Configuration
   * Given the base URL from Twilio, if we ask the user for their Twilio account credentials
   * can we create the config/twilio.yml for them?
