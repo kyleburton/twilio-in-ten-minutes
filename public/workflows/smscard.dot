@@ -1,0 +1,5 @@
+digraph {
+  "say_goodbye" [ shape = circle ]; 
+  "start" [ shape = doublecircle ]; 
+  "start" -> "say_goodbye" [ label = "always_transition" ];
+}

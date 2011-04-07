@@ -126,6 +126,29 @@ class IvrClient
     input_to_workflow
   end
 
+  def sms_req_params params={}
+    params['AccountSid']  ||= (@account_sid || 'none-configured')
+    params['From']        ||= @phone_number
+    params['To']          ||= @sms_phone_number
+    params["SmsSid"]      ||= ''
+    params["Body"]        ||= ''
+    params['Direction']   ||= 'inbound'
+    params['FromCity']    ||= ''
+    params['FromState']   ||= ''
+    params['FromZip']     ||= ''
+    params['FromCountry'] ||= ''
+    params['ToCity']      ||= ''
+    params['ToState']     ||= ''
+    params['ToZip']       ||= ''
+    params['ToCountry']   ||= ''
+
+
+    params
+  end
+
+  def send_sms params
+  end
+
 end
 
 ivr_client = IvrClient.new

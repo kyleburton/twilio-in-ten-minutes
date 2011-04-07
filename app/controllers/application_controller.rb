@@ -37,7 +37,36 @@ class ApplicationController < ActionController::Base
       @call_session.state = @workflow.current_state.to_s
       @call_session.workflow_internal_state = @workflow.serialize_workflow
       @call_session.save!
-      res
+      return res
+    end
+
+    if !sms_body.nil? && !sms_body.empty?
+      {"SmsSid"      => :sms_sid,
+       "AccountSid"  => :account_sid,
+       "From"        => :sms_from,
+       "To"          => :sms_to,
+       "Body"        => :sms_body,
+       "FromCity"    => :from_city,
+       "FromState"   => :from_state,
+       "FromZip"     => :from_zip,
+       "FromCountry" => :from_country,
+       "ToCity"      => :to_city,
+       "ToState"     => :to_state,
+       "ToZip"       => :to_zip,
+       "ToCountry "  => :to_country }.each do |param,method|
+        m = "#{method.to_s}=".to_sym
+        @workflow.send m, params[param]
+      end
+
+      Rails.logger.info "User input SMS: #{@workflow.sms_body}"
+      before_state = @workflow.current_state
+      res = @workflow.transition_once!
+      @workflow.set_response
+      @workflow.history << { :state => @workflow.current_state, :message => @workflow.message }
+      @call_session.state = @workflow.current_state.to_s
+      @call_session.workflow_internal_state = @workflow.serialize_workflow
+      @call_session.save!
+      return res
     end
   rescue Exception => e
     Rails.logger.error e
@@ -67,6 +96,26 @@ class ApplicationController < ActionController::Base
       @workflow.workflow_state = @call_session.state
     end
     @workflow.set_response
+  end
+
+  def sms_body
+    params['Body'] || ''
+  end
+
+  def sms_from
+    params['From'] || ''
+  end
+
+  def sms_to
+    params['To'] || ''
+  end
+
+  def sms_sid
+    params['SmsSid'] || ''
+  end
+
+  def account_sid
+    params['AccountSid'] || ''
   end
 
   def digits

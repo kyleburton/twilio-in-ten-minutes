@@ -16,19 +16,25 @@
           <legend>IVR Interaction</legend>
           <table>
             <tr>
-              <td><label for="input-digits">Digits:</label></td>
+              <td><label for="input-digits">Digits (or txt):</label></td>
               <td><input type="text" id="input-digits" name="digits" size="35" /></td>
-              <td><input type="submit" id="press-digits" name="press-digits" value="Enter Digits" /> </td>
+              <td><input type="submit" id="press-digits" name="press-digits" value="Send Input" /> </td>
+              <td>
+                Ivr: <%= radio_button_tag 'ivr-or-sms', 'Ivr', true %>
+                Sms: <%= radio_button_tag 'ivr-or-sms', 'Sms', false %>
+              </td>
             </tr>
             <tr>
               <td><label for="caller">Calling From:</label></td>
               <td><input type="text" id="caller" name="digits" size="35" /></td>
               <td><button type="button" id="reset">Reset Workflow</button></td>
+              <td>&nbsp;</td>
             </tr>
             <tr>
               <td><label for="caller">Call Session ID:</label></td>
               <td><input type="text" id="call-sid" name="digits" size="35" /></td>
               <td><a id="view-session-link" href="#">View Session</a></td>
+              <td>&nbsp;</td>
             </tr>
           </table>
         </fieldset>

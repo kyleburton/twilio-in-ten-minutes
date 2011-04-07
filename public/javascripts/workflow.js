@@ -90,7 +90,44 @@ var Workflow = function () {
     $('#conversation').prepend(content);
   };
 
-  self.sendDigits = function () {
+  self.sendInput = function () {
+    var sendType = $('#workflow-form input:checked').val();
+    console.log("sendType: %s", sendType);
+    if (sendType === 'Ivr') {
+      console.log("sending as ivr input");
+      return self.sendIvrInput();
+    }
+    else {
+      console.log("sending as sms input");
+      return self.sendSmsInput();
+    }
+  };
+
+  self.sendSmsInput = function () {
+    var digits = $('#input-digits').val();
+    if (digits.length == 0) {
+      return false;
+    }
+
+    console.log("sending sms via ajax call, here we go!");
+    self.addUserInput(digits);
+    $.ajax({
+      url: '/workflow/input/' + self.workflowName() + '.json?' + self.randomVal(),
+      type: "POST",
+      data: {
+             "From":       $('#caller').val(),
+             "Body":       digits,
+             "To":         'the-twilio-endpoint',
+             "AccountSid": 'this-would-be-your-acocunt-sid',
+             "SmsSid":     self.callSid()
+            },  
+      success: Workflow.serverResponse,
+      error: Workflow.ajaxError,
+    }); 
+    return false;
+  };
+
+  self.sendIvrInput = function () {
     var digits = $('#input-digits').val();
     if (digits.length == 0) {
       return false;
@@ -145,7 +182,7 @@ var Workflow = function () {
   };
 
   self.formSubmit = function () {
-    self.sendDigits();
+    self.sendInput();
     return false;
   };
 

@@ -1,7 +1,11 @@
 require 'twml'
 require 'newflow'
 class Ivrflow
-  attr_accessor :digits, :workflow_state, :message, :history
+  attr_accessor :digits, :workflow_state, :message, :history,
+    :sms_sid, :account_sid, :sms_from, :sms_to, :sms_body,
+    :from_city, :from_state, :from_zip, :from_country, :to_city,
+    :to_state, :to_zip, :to_country
+
   include Newflow
   @@message_procs = {}
 
