@@ -161,3 +161,28 @@ h1. Rendering the Workflows
 
 To render the workflows you will need to have GraphViz installed, then execute: @rake ivr:render_workflows@
 
+h1. Developing / Hacking
+
+Create a local branch that you _will_not_push_ to a public repo, this branch will contain your @config/twilio.yml@.
+
+Create your @config/twilio.yml@.  Add it to git, check it in.
+
+Push your branch to Heroku as the master.
+
+
+<pre>
+user@host: ~/projects/twilio-in-ten-minutes $ git checkout -b twilio-deploy
+user@host: ~/projects/twilio-in-ten-minutes $ vi config/twilio.yml
+user@host: ~/projects/twilio-in-ten-minutes $ git add config/twilio.yml
+user@host: ~/projects/twilio-in-ten-minutes $ git ci -m 'my twilio config'
+user@host: ~/projects/twilio-in-ten-minutes $ git push heroku twilio-deploy:master
+</pre>
+
+
+When you're done, re-checkout @master@ and do your development there.  Then to
+deploy, checkout @twilio-deploy@, merge master into it and push to Heroku
+again.
+
+This will keep your @config/twilio.yml@ out of the master branch - which is key
+for me since it has my Twilio credentails and my master branch gets pushed to
+Github (which is probably where you're reading this).
