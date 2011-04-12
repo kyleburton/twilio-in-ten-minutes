@@ -22,6 +22,6 @@ class SMSCard < Ivrflow
   end
 
   message :say_goodbye do
-    sms "Nice talking to ya!"
+    sms "Ok Mr '#{sms_body}', it nice talking to ya!"
   end
 end

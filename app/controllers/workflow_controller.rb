@@ -13,6 +13,12 @@ class WorkflowController < ApplicationController
   end
 
   def input
+    if RAILS_ENV == 'development'
+      Dir.glob("#{RAILS_ROOT}/app/ivr_workflows/*.rb").each do |f|
+        Rails.logger.info "reloading: #{f}"
+        load f
+      end
+    end
     find_or_create_session params[:id]
     step_workflow
     twml = <<-END
