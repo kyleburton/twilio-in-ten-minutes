@@ -29,6 +29,64 @@ creating our own IVR prototyping environment, how the services and technology
 all fits together.  Finally I'll provide you with and walk you through my
 framework for state machine based IVR application development.
 
+
+</pre>
+# https://gist.github.com/830204
+VOICE="Vicki"
+BALANCE="100"
+
+function voice_prompt () {
+  echo "  SPEAKING: $1"
+  say -v "$VOICE" "$1"
+}
+
+function get_user_keypress () {
+  KEY=""
+  echo -n "Press a Key: "
+  read KEY
+  export KEY
+}
+
+echo "Pretending I'm an IVR (Interactive Voice Response System)..."
+
+function say_top_menu () {
+  voice_prompt "Press 1 to hear your current balance."
+  voice_prompt "Press 2 to make a payment."
+  voice_prompt "Press star to hear this menu again."
+  voice_prompt "Press 0 to disconnect."
+}
+
+voice_prompt "Welcome to the IVR Simulator."
+CONTINUE="Y"
+while [ "$CONTINUE" == "Y" ] ; do
+  say_top_menu
+  get_user_keypress
+
+  case "$KEY" in
+    1)
+    voice_prompt "Your current balance is: $BALANCE dollars"
+    ;;
+
+    2)
+    voice_prompt "Please enter the amount you'd like to pay."
+    get_user_keypress
+    AMT=$KEY
+    BALANCE=$(($BALANCE - $AMT))
+    voice_prompt "Thank you, $AMT dollars has been credited to your account."
+    ;;
+    "0")
+      CONTINUE=N
+      voice_prompt "Thank you.  Goodbye."
+      exit 0
+    ;;
+    *)
+     # nothing
+    ;;
+  esac
+done
+</pre>
+
+
 h3. Title Slide
 
 Just add Water: Instant Cloud Based Telephony Applications with Twilio and Heroku
@@ -160,3 +218,8 @@ http://www.flickr.com/photos/furryscalyman/1034889957/
 http://www.flickr.com/photos/joshsemans/3595245177/
 http://www.flickr.com/photos/albany_tim/4030019937/
 http://en.wikipedia.org/wiki/File:CryptoCard_two_factor.jpg
+
+http://www.flickr.com/photos/cote/54408562/sizes/l/in/photostream/
+http://www.flickr.com/photos/pargon/2444943158/sizes/l/in/photostream/
+http://knowyourmeme.com/memes/y-u-no-guy
+http://memegenerator.net/Y-U-NO/ImageMacro/7217470/Vendor-Y-U-NO-Update-Faster
