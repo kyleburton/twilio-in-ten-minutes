@@ -162,4 +162,12 @@ class ApplicationController < ActionController::Base
     params['Caller'] || ''
   end
 
+  def reload_workflows
+    if RAILS_ENV == 'development'
+      Dir.glob("#{RAILS_ROOT}/app/ivr_workflows/*.rb").each do |f|
+        Rails.logger.info "reloading: #{f}"
+        load f
+      end
+    end
+  end
 end

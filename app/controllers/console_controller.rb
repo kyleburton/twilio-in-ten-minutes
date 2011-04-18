@@ -1,6 +1,7 @@
 class ConsoleController < ApplicationController
   layout 'site'
   before_filter :expire_old_sessions
+  before_filter :reload_workflows,    :only => [:index]
 
   def index
   end
