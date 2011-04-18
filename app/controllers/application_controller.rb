@@ -140,7 +140,7 @@ class ApplicationController < ActionController::Base
     if params.has_key?('CallSid')
       call_sid
     elsif params.has_key?('SmsSid')
-      sms_sid
+      params['From']
     else
       Rails.logger.error "Error: invalid request, no CallSid or SmsSid! : #{params.inspect}"
       nil
