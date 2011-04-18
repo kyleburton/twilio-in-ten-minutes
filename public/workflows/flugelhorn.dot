@@ -1,0 +1,5 @@
+digraph {
+  "done" [ shape = circle ]; 
+  "start" [ shape = doublecircle ]; 
+  "start" -> "done" [ label = "a_ok?" ];
+}
