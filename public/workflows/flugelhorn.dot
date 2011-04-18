@@ -1,0 +1,7 @@
+digraph {
+  "second_state" [ shape = circle ]; 
+  "second_state" -> "done" [ label = "any_input?" ];
+  "start" [ shape = doublecircle ]; 
+  "start" -> "second_state" [ label = "always_transition?" ];
+  "done" [ shape = circle ]; 
+}
