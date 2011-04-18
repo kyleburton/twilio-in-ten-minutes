@@ -12,13 +12,13 @@ class ApplicationController < ActionController::Base
 
   protected
   def expire_old_sessions
-    @ivr_session_id = call_sid
+    @ivr_session_id = twilio_session_id
     CallSession.connection.execute("select id,updated_at at time zone 'gmt' as updated_at,now() at time zone 'gmt' as curr_time from call_sessions").each do |rec|
       #require 'ruby-debug'; debugger; 1
       t1 = Time.now
       t2 = Time.parse(rec["updated_at"])
       age = t1 - t2
-      Rails.logger.info "EXPIRE: age:#{age}/#{t2-t1} #{rec.inspect}"
+      Rails.logger.info "EXPIRE: age:#{age}/#{t2-t1} vs 120 #{rec.inspect}"
       if age > 120 # seconds
         Rails.logger.info "Expiring session:#{rec["id"]} age=#{age}"
         CallSession.delete(rec["id"])
@@ -74,19 +74,29 @@ class ApplicationController < ActionController::Base
   end
 
   def find_or_create_session workflow_name
-    @call_session = CallSession.find_by_session_id(call_sid)
+    @call_session = CallSession.find_by_session_id(twilio_session_id)
     if @call_session.nil?
       @workflow     = workflow_name.constantize.new
       @workflow.history << { :state => @workflow.current_state, :message => @workflow.message }
       internal_state = @workflow.serialize_workflow
-      Rails.logger.info "creating new session with sid=#{call_sid}"
-      @call_session = CallSession.create(
-        :session_id     => call_sid,
-        :caller_number  => caller_number,
-        :workflow_name  => workflow_name,
-        :state          => @workflow.workflow_state.to_s,
-        :workflow_internal_state => internal_state
-      )
+      if twilio_session_id
+        Rails.logger.info "creating new session with sid=#{twilio_session_id}"
+        @call_session = CallSession.create(
+          :session_id     => twilio_session_id,
+          :caller_number  => caller_number,
+          :workflow_name  => workflow_name,
+          :state          => @workflow.workflow_state.to_s,
+          :workflow_internal_state => internal_state
+        )
+      else
+        @call_session = CallSession.new(
+          :session_id     => twilio_session_id,
+          :caller_number  => caller_number,
+          :workflow_name  => workflow_name,
+          :state          => @workflow.workflow_state.to_s,
+          :workflow_internal_state => internal_state
+        )
+      end
     else
       if !caller_number.nil? && !caller_number.empty?
         @call_session.caller_number = caller_number
@@ -123,7 +133,18 @@ class ApplicationController < ActionController::Base
   end
 
   def call_sid
-    params['CallSid'] ||= 'Sid-' + Time.now.to_i.to_s + '-' + rand(1_000_000).to_s
+    params['CallSid']
+  end
+
+  def twilio_session_id
+    if params.has_key?('CallSid')
+      call_sid
+    elsif params.has_key?('SmsSid')
+      sms_sid
+    else
+      Rails.logger.error "Error: invalid request, no CallSid or SmsSid! : #{params.inspect}"
+      nil
+    end
   end
 
   def send_back &block

@@ -12,7 +12,7 @@ var Workflow = function () {
   };
 
   self.callSid = function () {
-    console.log('self.sid=%s',self.sid);
+    console.log('self.sid=%s',Workflow.sid);
     if ( Ivr.sid !== undefined ) {
       Workflow.sid = Ivr.sid;
     }
@@ -22,13 +22,19 @@ var Workflow = function () {
     }
 
     var sid = $.query.get('CallSid');
-    console.log('was null or blank, trying qs=%s',sid);
+    if ( sid !== null && sid !== "" && sid !== undefined ) {
+      sid = $('#call-sid');
+    }
+
+    console.log('self.sid was null or blank, trying qs=%s',sid);
     if ( sid === null || sid === "" || sid === undefined ) {
       sid = "Sid-" + self.tstamp() 
           + "-" + Math.floor(Math.random() * 100000);
       console.log('was null or blank, generating new=%s',sid);
     }
     self.sid = sid;
+    Workflow.sid = sid;
+    Ivr.sid = sid;
     return self.sid;
   };
 

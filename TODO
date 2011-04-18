@@ -1,11 +1,8 @@
-* Upgrade to Rails 3
-  * supports autoload_paths, so workflows can be actively developed
+* allow an sms to be sent out
 
 * Development / Deployment
   * Based on the interactive console, if the server is run in devleopment
-  * mode, allow [basic] workflows to be created / edited
-  * then have a 'Deploy' button that pushes the repo up to Heroku
-
+    mode, have a 'Deploy' button that pushes the repo up to Heroku
 
 * Documentaiton
   * write up docs as part of the web console

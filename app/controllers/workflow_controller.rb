@@ -7,8 +7,9 @@ class WorkflowController < ApplicationController
     name = params[:id]
     find_or_create_session name
     @graph_png = "/workflows/#{name.downcase}.png"
-    if !File.exist?("#{RAILS_ROOT}/public#{@graph_png}")
-      flash[:error] = "You need to run 'rake ivr:render_workflows' in your app to generate the workflow graphs."
+    file_name = "#{RAILS_ROOT}/public#{@graph_png}"
+    if !File.exist?(file_name)
+      flash[:error] = "You need to run 'rake ivr:render_workflows' in your app to generate the workflow graphs. (#{file_name})"
     end
   end
 
