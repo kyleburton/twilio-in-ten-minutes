@@ -29,7 +29,7 @@ class Rsvp < Ivrflow
   end
 
   def negative_response?
-    sms_body =~ /(?:no|nope|negative|waterfall|saxaphone|java)/
+    sms_body =~ /(?i:no|nope|negative|waterfall|saxaphone|java)/
   end
 
   def unknown_response?
