@@ -7,6 +7,7 @@ class Rsvp < Ivrflow
 
   define_workflow do
     state :start, :start => true, :on_entry => :entered_start do
+      transitions_to :start,                     :if => :asked_for_help?
       transitions_to :thanks_for_your_rsvp,      :if => :did_rsvp?
       transitions_to :hope_to_see_you_next_time, :if => :negative_response?
       transitions_to :say_wtf,                   :if => :unknown_response?
@@ -22,6 +23,10 @@ class Rsvp < Ivrflow
 
     state :say_wtf,  :stop => true
     state :all_done, :stop => true
+  end
+
+  def asked_for_help?
+    sms_body =~ /(?i:help|rsvp|philly\s+lambda)/
   end
 
   def did_rsvp?

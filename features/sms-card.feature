@@ -7,5 +7,5 @@ Feature: SMS Workflow Test
 
   Scenario: I text in help.
     When I text "Help"
-    Then I recieve an sms that contains "Whoa, hey there!"
+    Then I recieve an sms that contains "Ok Mr 'Help', it nice talking to ya!"
 

@@ -122,31 +122,16 @@ class IvrClient
     @last_response = do_post url, req_params(params)
   end
 
+  def send_sms sms, params={}
+    url = "#{config[:base_url]}/workflow/input/#{workflow_name}.json"
+    params = req_params(params)
+    params['Body'] = sms
+    params['SmsSid'] = params.delete 'CallSid'
+    @last_response = do_post url, params
+  end
+
   def call_the_ivr
     input_to_workflow
-  end
-
-  def sms_req_params params={}
-    params['AccountSid']  ||= (@account_sid || 'none-configured')
-    params['From']        ||= @phone_number
-    params['To']          ||= @sms_phone_number
-    params["SmsSid"]      ||= ''
-    params["Body"]        ||= ''
-    params['Direction']   ||= 'inbound'
-    params['FromCity']    ||= ''
-    params['FromState']   ||= ''
-    params['FromZip']     ||= ''
-    params['FromCountry'] ||= ''
-    params['ToCity']      ||= ''
-    params['ToState']     ||= ''
-    params['ToZip']       ||= ''
-    params['ToCountry']   ||= ''
-
-
-    params
-  end
-
-  def send_sms params
   end
 
 end
