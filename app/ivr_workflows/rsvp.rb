@@ -8,7 +8,8 @@ class Rsvp < Ivrflow
   define_workflow do
     state :start, :start => true, :on_entry => :entered_start do
       transitions_to :thanks_for_your_rsvp,      :if => :did_rsvp?
-      transitions_to :hope_to_see_you_next_time, :if => :not_did_rsvp?
+      transitions_to :hope_to_see_you_next_time, :if => :negative_response?
+      transitions_to :say_wtf,                   :if => :unknown_response?
     end
 
     state :thanks_for_your_rsvp do
@@ -19,6 +20,7 @@ class Rsvp < Ivrflow
       transitions_to :all_done,      :if => :any_input?
     end
 
+    state :say_wtf,  :stop => true
     state :all_done, :stop => true
   end
 
@@ -26,8 +28,16 @@ class Rsvp < Ivrflow
     sms_body =~ /(?i:yes|ok|go|flugelhorn)/
   end
 
+  def negative_response?
+    sms_body =~ /(?:no|nope|negative|waterfall|saxaphone|java)/
+  end
+
+  def unknown_response?
+    !did_rsvp? && !negative_response?
+  end
+
   message :start do
-    sms "To RSVP, reply with {yes, ok, go, flugelhorn}"
+    sms "To RSVP, reply with {yes, ok, go, flugelhorn}, to Bug out, {no, negative, saxaphone}"
   end
 
   message :thanks_for_your_rsvp do
@@ -40,6 +50,11 @@ class Rsvp < Ivrflow
 
   def any_input?
     sms_body.size > 0
+  end
+
+
+  message :say_wtf do
+    sms "WHY U NO MAKE SENSE?, try again."
   end
 
   message :all_done do
