@@ -54,7 +54,7 @@ class Rsvp < Ivrflow
 
 
   message :say_wtf do
-    sms "WHY U NO MAKE SENSE?, try again."
+    sms "WHY U NO MAKE SENSE?, try again. To RSVP, reply with {yes, ok, go, flugelhorn}, to Bug out, {no, negative, saxaphone}"
   end
 
   message :all_done do
