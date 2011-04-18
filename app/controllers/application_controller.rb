@@ -73,6 +73,10 @@ class ApplicationController < ActionController::Base
     @error = "Erorr executing workflow: #{e}"
   end
 
+  def workflow_stopped?
+    @workflow.workflow.states[@workflow.workflow.current_state].stop?
+  end
+
   def find_or_create_session workflow_name
     @call_session = CallSession.find_by_session_id(twilio_session_id)
     if @call_session.nil?

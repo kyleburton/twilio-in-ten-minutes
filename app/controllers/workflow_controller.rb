@@ -27,6 +27,11 @@ class WorkflowController < ApplicationController
 <!-- Workflow Name:  #{params[:id]} -->
 <!-- Workflow State: #{@workflow.current_state} -->
     END
+
+    if workflow_stopped?
+      @call_session.destroy
+    end
+
     respond_to do |fmt|
       fmt.xml { render :content_type => 'text/xml', :text => twml }
       fmt.json { 
@@ -34,7 +39,7 @@ class WorkflowController < ApplicationController
           :workflow_name  => @call_session.workflow_name,
           :workflow_state => @call_session.state,
           :error          => @error,
-          :finished       => @workflow.workflow.states[@workflow.workflow.current_state].stop?,
+          :finished       => workflow_stopped?,
           :twml           => twml
         }
       }
