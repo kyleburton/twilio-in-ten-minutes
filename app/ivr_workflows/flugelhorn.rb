@@ -1,40 +1,35 @@
 require 'ivrflow'
 
-class Flugelhorn < Ivrflow
 
-  desc "some awesome new example"
+class Flugelhorn < Ivrflow
+  desc "my awesome flow"
 
   define_workflow do
     state :start, :start => true do
-      transitions_to :second_state, :if => :always_transition?
+      transitions_to :middle, :if => :any_input?
     end
 
-    state :second_state do
-      transitions_to :done, :if => :any_input?
+    state :middle do
+      transitions_to :final, :if => :any_input?
     end
 
-    state :done, :stop => true
-  end
+    state :final, :stop => true
 
-
-  message :start do
-    sms "you'll never see this"
-  end
-
-  def always_transition?
-    true
-  end
-
-  message :second_state do
-    sms "Go ahead and tell me all your secret sauces hon."
   end
 
   def any_input?
-    !sms_body.empty?
+    !sms_body.nil?
   end
 
-  message :done do
-    sms "'#{sms_body}' well I never! I'm alerting the authorities!"
+  message :start do
+    say "Welcome, tell me all your most secret secrets"
   end
 
+  message :middle do
+    say "That's nice dear, what else?"
+  end
+
+  message :final do
+    say "'#{sms_body}?  Well I never!"
+  end
 end
