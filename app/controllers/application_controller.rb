@@ -12,9 +12,14 @@ class ApplicationController < ActionController::Base
 
   protected
   def expire_old_sessions
+    return
+    # both sqlite and postgresql support 'select current_timestamp;'
+    # SQLITE: select id,current_timestamp - datetime(julianday(updated_at),'unixepoch') from call_sessions;
+    # select date('now'),updated_at,julianday(date('now')),julianday(updated_at),julianday(date('now'))-julianday(updated_at) from call_sessions;
+    # select date('now'),updated_at,julianday(date('now')),julianday(updated_at),((julianday(date('now'))-julianday(updated_at))*864000) from call_sessions;
+    # to detect the adapter, use: CallSession.connection.adapter_name
     @ivr_session_id = twilio_session_id
     CallSession.connection.execute("select id,updated_at at time zone 'gmt' as updated_at,now() at time zone 'gmt' as curr_time from call_sessions").each do |rec|
-      #require 'ruby-debug'; debugger; 1
       t1 = Time.now
       t2 = Time.parse(rec["updated_at"])
       age = t1 - t2
