@@ -25,4 +25,5 @@ class ConsoleController < ApplicationController
       fmt.json { render :json => @session_info }
     end
   end
+
 end

@@ -1,7 +1,7 @@
 class WorkflowController < ApplicationController
   layout 'site'
 
-  before_filter :expire_old_sessions, :only => [:show, :input]
+  # before_filter :expire_old_sessions, :only => [:show, :input]
   before_filter :reload_workflows,    :only => [:show, :input]
 
   def show

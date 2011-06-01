@@ -29,4 +29,12 @@ class CallSessionController < ApplicationController
       fmt.html { render :template => 'call_session/show' }
     end
   end
+
+  def delete
+    @call_session = CallSession.find(params[:id])
+    @call_session.destroy if @call_session
+    redirect_to console_path
+  rescue
+    redirect_to '/'
+  end
 end

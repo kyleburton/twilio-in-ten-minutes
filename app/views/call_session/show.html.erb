@@ -10,6 +10,9 @@
   <p>
   Workflow: <%= link_to @call_session.workflow_name, :controller => :workflow, :action => :show, :id => @call_session.workflow_name, :CallSid => @call_session.session_id  -%>
   </p>
+  <p>
+  <%= link_to "Delete", :action => :delete, :id => @call_session.id %>
+  </p>
   <div id="session-history">
   </div>
 </div>
