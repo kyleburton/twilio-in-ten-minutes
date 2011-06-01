@@ -1,0 +1,5 @@
+digraph {
+  "done" [ shape = circle ]; 
+  "begin" [ shape = doublecircle ]; 
+  "begin" -> "done" [ label = "any_input?" ];
+}
