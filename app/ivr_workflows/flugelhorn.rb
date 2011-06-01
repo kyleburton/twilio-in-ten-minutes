@@ -15,10 +15,10 @@ class Flugelhorn < Ivrflow
   end
 
   message :begin do
-    say "at start"
+    sms "at start"
   end
 
   message :done do
-    say "all done"
+    sms "all done"
   end
 end
