@@ -27,6 +27,7 @@ class WorkflowController < ApplicationController
       @call_session.destroy
     end
 
+    Rails.logger.info "responding with #{twml}"
     respond_to do |fmt|
       fmt.xml { render :content_type => 'text/xml', :text => twml }
       fmt.json { 

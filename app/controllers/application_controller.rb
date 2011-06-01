@@ -151,7 +151,7 @@ class ApplicationController < ActionController::Base
     elsif params.has_key?('SmsSid')
       params['From']
     else
-      Rails.logger.error "Error: invalid request, no CallSid or SmsSid! : #{params.inspect}"
+      Rails.logger.warn "Error: invalid request, no CallSid or SmsSid! : #{params.inspect}"
       nil
     end
   end
