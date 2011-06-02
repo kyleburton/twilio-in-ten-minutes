@@ -1,3 +1,12 @@
+* TWML / Framework
+ * SMS based workflows and Voice based workflows should be mutually exclusive
+   * if we're connected to a phone call (CallSid), the system
+     should at least warn if any SMS based commands are issued
+   * if we're participating in an SMS exchagne (SmsSid), then
+     the framework should warn/error if any voice or dial commands
+     are issued.
+   --> these are silently accepted by the twilio api
+
 * allow an sms to be sent out
 
 * Development / Deployment

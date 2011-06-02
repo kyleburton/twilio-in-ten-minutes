@@ -1,11 +1,11 @@
 digraph {
+  "thanks_for_your_rsvp" [ shape = circle ]; 
+  "thanks_for_your_rsvp" -> "all_done" [ label = "any_input?" ];
   "hope_to_see_you_next_time" [ shape = circle ]; 
   "hope_to_see_you_next_time" -> "all_done" [ label = "any_input?" ];
-  "all_done" [ shape = circle ]; 
   "start" [ shape = doublecircle ]; 
   "start" -> "start" [ label = "invalid_rsvp?" ];
   "start" -> "thanks_for_your_rsvp" [ label = "did_rsvp?" ];
   "start" -> "hope_to_see_you_next_time" [ label = "negative_rsvp?" ];
-  "thanks_for_your_rsvp" [ shape = circle ]; 
-  "thanks_for_your_rsvp" -> "all_done" [ label = "any_input?" ];
+  "all_done" [ shape = circle ]; 
 }
