@@ -1,0 +1,15 @@
+Instant Cloud Based Telephony Applications with Twilio and Heroku
+
+
+Using Services that did not exist 5 years ago, you can now build Interactive
+Voice Response and interactive SMS applications easily and quickly.  Twilio
+provides the hooks into the Phone and SMS networks and Heroku lets you run (and
+scale) the back-end for little to no cost.
+
+In this talk I'll discuss the business need that lead my company to create our
+own IVR prototyping environment, the framework I craeated for rapid development
+and deployment, and finally how the services and technology all fits together.
+
+I'll provide you with and walk you through my framework for state machine based
+IVR application development by creating, and deploying a new sms based
+application during the talk.
