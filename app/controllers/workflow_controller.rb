@@ -23,9 +23,9 @@ class WorkflowController < ApplicationController
 <!-- Workflow State: #{@workflow.current_state} -->
     END
 
-    if workflow_stopped?
-      @call_session.destroy
-    end
+    #if workflow_stopped?
+    #  @call_session.destroy
+    #end
 
     Rails.logger.info "responding with #{twml}"
     respond_to do |fmt|
