@@ -5,6 +5,7 @@ Feature: SMS Workflow Test
     Given my telephone number is "(610) 555-1212"
     And I am testing the "Rsvp" workflow.
 
+  @pending
   Scenario: I rsvp to go.
     When I text "Help"
     Then I recieve an sms that contains "To RSVP, reply with"
@@ -13,6 +14,7 @@ Feature: SMS Workflow Test
     When I text "What's next?"
     Then I recieve an sms that contains "go find something better to do"
 
+  @pending
   Scenario: I am a failure as a human being
     When I text "Help"
     Then I recieve an sms that contains "To RSVP, reply with"
