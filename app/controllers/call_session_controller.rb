@@ -1,5 +1,6 @@
 class CallSessionController < ApplicationController
   layout 'site'
+  before_filter :reload_workflows,    :except => [:delete]
 
   def delete
     Rails.logger.info "delete call: #{params[:id]}"
@@ -18,6 +19,8 @@ class CallSessionController < ApplicationController
       fmt.json { render :json => { :call_session => @call_session, :workflow_history => @workflow.history  } }
       fmt.html
     end
+  rescue
+    render :show
   end
 
   def by_sid
