@@ -137,7 +137,7 @@ Used to test if the user has entered a specific set of digits, eg:  @pressed_1?@
 
 h3. @not_(predicate)?@
 
-This form will invert the logic (convienient for trigger functions) of any method that your worklfow supports.  Eg: @not_pressed_1?@
+This form will invert the logic (convenient for trigger functions) of any method that your worklfow supports.  Eg: @not_pressed_1?@
 
 h3. @(state_name)_message@
 
